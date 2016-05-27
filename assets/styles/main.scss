@@ -1,2 +1,33 @@
 @import 'partials/_variables';
 
+.col-centered {
+	text-align: center;
+}
+
+.tama-header {
+	div {
+		display: inline-block;
+		border-right: $header-border;
+		padding: 0 10px;
+
+		&:last-child {
+			border-right: none;
+		}
+	}
+
+}
+
+.main-content {
+	margin-top: 50px;
+}
+
+.tama-main {
+	background: $tama-main-background;
+	min-height: 478px;
+}
+
+
+/* Medium and large */
+@media screen and (min-width: 700px) {
+
+}

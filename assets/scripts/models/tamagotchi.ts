@@ -5,15 +5,28 @@ class Tamagotchi {
 	private hyg: number;
 	private workLevel: number;
 	private promoteLevel: string;
-
+	private initialHealth: number;
+	private initialMoney: number;
+	private initialHyg: number;
+	private initialWorkLevel: number;
 
 
 	constructor(name: string, health: number, money: number, hyg:number, workLevel:number) {
 		this.name = name;
-		this.health = health;
-		this.money = money;
-		this.hyg = hyg;
-		this.workLevel = workLevel;
+		this.health = this.initialHealth = health;
+		this.money = this.initialMoney = money;
+		this.hyg = this.initialHyg = hyg;
+		this.workLevel = this.initialWorkLevel = workLevel;
+		this.promote();
+	}
+
+	/* Restart game */
+	restartGame(): void {
+		console.log('Santé ini ' + this.initialHealth);
+		this.health = this.initialHealth;
+		this.money = this.initialMoney;
+		this.hyg = this.initialHyg;
+		this.workLevel = this.initialWorkLevel;
 		this.promote();
 	}
 
@@ -48,7 +61,8 @@ class Tamagotchi {
 			return false;
 
 	}
-	// cleen the Tamagotchi 
+
+	// Clean the Tamagotchi 
 	clean(): boolean {
 		if (this.money > 0) {
 			this.hyg++;
@@ -57,6 +71,7 @@ class Tamagotchi {
 		} else
 		return false;
 	}
+
 	work ():void{
 		this.money += 10;
 		this.health -= 2;
@@ -66,13 +81,16 @@ class Tamagotchi {
 
 	promote (): any{
 		if (this.workLevel == 0) {
-			return this.promoteLevel="unemployed";
+			return this.promoteLevel="Unemployed";
 		} else if ((this.workLevel > 0) && (this.workLevel < 50)) {
-			return this.promoteLevel = "laborer";
+			return this.promoteLevel = "Laborer";
 		} else if ((this.workLevel >= 51) && (this.workLevel < 200)) {
-			return this.promoteLevel = "chief";
+			return this.promoteLevel = "Chief";
 		} else if (this.workLevel >= 201) {	
-			return this.promoteLevel = "director";
+			return this.promoteLevel = "Director";
 		}
 	}
+
+
+
 }

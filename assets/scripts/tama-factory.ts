@@ -16,7 +16,7 @@ module Application.Factories {
 
 		
 		private createTama():any {
-			let tama = new Tamagotchi('ZP', 20, 300, 30,10);
+			let tama = new Tamagotchi('Tamachi', 20, 300, 30,10);
 			
 		
 			return tama;

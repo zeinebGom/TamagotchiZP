@@ -34,9 +34,12 @@ module Application.Controllers {
 		}
 		work ():void {
 			this.tamaFact.tamagotchi.work();
-			console.log(this.tamaFact.tamagotchi.getPromoteLevel());
 		}
 		
+		restartGame(): void {
+			this.tamaFact.tamagotchi.restartGame();
+		}
+
 	}
 
 }

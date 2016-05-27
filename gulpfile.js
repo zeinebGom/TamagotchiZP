@@ -20,6 +20,9 @@ var cssSource =	[
 				];
 var cssTarget = 'main.css';
 
+var imgSource =	[
+					'./assets/images/*.png'
+				];
 
 var distTarget = "./dist/";
 
@@ -27,7 +30,7 @@ var distTarget = "./dist/";
 
 
 /* Concat TypeScript files */
-gulp.task('compileJS', function() {
+gulp.task('js', function() {
 	return	gulp.src(jsSource)
 			.pipe(ts({
 				noImplicitAny: false,
@@ -47,12 +50,20 @@ gulp.task('sass', function () {
     		.pipe(livereload());
 });
 
+/* Copy images */
+gulp.task('img', function () {
+	return	gulp.src(imgSource)
+    		.pipe(gulp.dest('./dist/images/'))
+    		.pipe(livereload());
+});
+
 
 gulp.task('watch', function() {
 	livereload.listen();
-	gulp.watch(jsSource, ['compileJS']);
+
+	gulp.watch(jsSource, ['js']);
 	gulp.watch(cssSource, ['sass']);
-	
+	gulp.watch(imgSource, ['img']);
 	gulp.watch('index.html', function() {
 		livereload.reload('./index.html');
 	});

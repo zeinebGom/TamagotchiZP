@@ -22,20 +22,8 @@
 
 
 	<div ng-controller="HomeController as homeCtl">
-		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() == 0">
-			<div class="container" style="width: 400px; height: 400px;">
-				<div class="row">
-					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-						<p>iGotchi is dead...</p>
 
-						<button ng-click="homeCtl.restartGame()">Restart playing</button>
-					</div>
-				</div>
-			</div>
-		</section>
-
-
-		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0">
+		<section>
 			<div class="container main-content">
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
@@ -58,11 +46,9 @@
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getMoney()"></span>
 							</div>
 							<div>
-								<span>Promote: </span>
+								<span>Promote level</span>
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getPromoteLevel()"></span>
-							</div>
-
-
+							</div>							
 
 						</div>
 					</div>
@@ -75,11 +61,6 @@
 						<div class="tama-main">
 							<button class="btn btn-lg btn-success" ng-click="homeCtl.feed()">Feed</button>
 							<button class="btn btn-lg btn-success" ng-click="homeCtl.clean()">Wash</button>
-							<button class="btn btn-lg btn-success" ng-click="homeCtl.work()">Work</button>
-
-
-							<button class="btn btn-lg btn-danger" ng-click="homeCtl.restartGame()">Restart</button>
-
 						</div>
 					</div>
 				</div>

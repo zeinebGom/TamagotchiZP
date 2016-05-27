@@ -1,0 +1,20 @@
+.col-centered {
+  text-align: center; }
+
+.tama-header div {
+  display: inline-block;
+  border-right: 1px solid #DDDDDD;
+  padding: 0 10px; }
+  .tama-header div:last-child {
+    border-right: none; }
+
+.main-content {
+  margin-top: 50px; }
+
+.tama-main {
+  background: url("images/tamagotchi.png") center center no-repeat;
+  min-height: 478px; }
+
+/* Medium and large */
+
+/*# sourceMappingURL=main.css.map */
