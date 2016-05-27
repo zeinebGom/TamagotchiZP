@@ -28,14 +28,14 @@ var distTarget = "./dist/";
 
 /* Concat TypeScript files */
 gulp.task('compileJS', function() {
-	return gulp.src(jsSource)
-		.pipe(ts({
-			noImplicitAny: false,
-			out: jsTarget
-		}))
-		.pipe(concat(jsTarget))
-		.pipe(gulp.dest('./dist/'))
-		.pipe(livereload());
+	return	gulp.src(jsSource)
+			.pipe(ts({
+				noImplicitAny: false,
+				out: jsTarget
+			}))
+			.pipe(concat(jsTarget))
+			.pipe(gulp.dest('./dist/'))
+			.pipe(livereload());
 });
 
 
