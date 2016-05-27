@@ -27,6 +27,10 @@ module Application.Controllers {
 			this.tamaFact.tamagotchi.feed(); 
 			
 		} 
+		clean():void{
+			this.tamaFact.tamagotchi.cleen();
+			
+		}
 	}
 
 }
