@@ -2,21 +2,77 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>TamagotchiZP</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="dist/main.css">
+
 </head>
 <body ng-app="tamaApp">
-<div ng-controller=" HomeController as mainCtl">
-<p>Game <span ng-bind="mainCtl.tamaName"> </span></p>
-	
-<h1> Game Tamagotchi</h1>
-</div>
+	<div ng-controller="HomeController as homeCtl">
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+						<h1>Welcome in Tamagotch ZP</h1>
+					</div>
+				</div>
+			</div>
+		</section>
 
-<footer>
-	 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		   <script src="assets/scripts/tama-factory.js" type="text/javascript"></script>  
-		   <script src="assets/scripts/home-controller.js" type="text/javascript"></script>
-		   <script src="assets/scripts/app.js" type="text/javascript"></script>
-</footer>
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+						<div class="tama-header">
+							<div>
+								<span class="glyphicon glyphicon-user"></span>
+								<span ng-bind="homeCtl.name"></span>
+							</div>
+
+							<div>
+								<span class="glyphicon glyphicon-heart"></span>
+								<span ng-bind="homeCtl.health"></span>
+							</div>
+							<div>
+								<span class="glyphicon glyphicon-euro"></span>
+								<span ng-bind="homeCtl.money"></span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+						<div class="tama-main">
+							Main
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+						<div class="tama-footer">
+							Footer
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</section>
+		
+		
+		
+	
+	</div>
+
+	<footer>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+		<script src="dist/app.js" type="text/javascript"></script>
+	</footer>
 	
 </body>
 </html>
