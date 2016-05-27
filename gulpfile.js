@@ -8,7 +8,8 @@ var livereload = require('gulp-livereload');
 /* Configuration */
 
 var jsSource =	[
-					 './assets/scripts/*.ts'
+					  './assets/scripts/models/*.ts'
+					 ,'./assets/scripts/*.ts'
 
 				];
 var jsTarget = "app.js";
@@ -29,7 +30,7 @@ var distTarget = "./dist/";
 gulp.task('compileJS', function() {
 	return gulp.src(jsSource)
 		.pipe(ts({
-			noImplicitAny: true,
+			noImplicitAny: false,
 			out: jsTarget
 		}))
 		.pipe(concat(jsTarget))
