@@ -4,7 +4,7 @@
 
 
 var appModule = angular.module("tamaApp", []);
-
+ 
 
 
 appModule.factory("Tama", ()=> Application.Factories.Tama);

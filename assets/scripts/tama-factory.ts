@@ -1,20 +1,23 @@
 /// <reference path="angular.d.ts" />
+/// <reference path="./models/tamagotchi.ts" />
 
 module Application.Factories {
 
 	export class Tama {
-		private tama: any;
+		private tamagotchi: any;
+
 
 		constructor() {
 		
-			return this.createTama();
+			this.tamagotchi= this.createTama();
 		}
 
 		
-		private createTama(): any {
-			let tama = [{
-				name:'tama'
-			}];
+
+		
+		private createTama():any {
+			let tama = new Tamagotchi('ZP', 20, 300);
+			
 		
 			return tama;
 		}

@@ -4,19 +4,29 @@ module Application.Controllers {
 	export class HomeController {
 		
 		
-		scope: any;
-		Tama: any;
-		tamaName:any;
+		scope:any;
+	
+	
+		tamaFact: any;
+		constructor($scope: ng.IScope, TamaFact: any) {
+			this.tamaFact = new TamaFact;
+			this.scope = $scope;
+			 // this.name = this.tama.tamagotchi.getName();
+			 // this.health = this.tama.tamagotchi.getHealth();
+			 // this.money = this.tama.tamagotchi.getMoney();
+
+
+			console.log(this.tamaFact);
+			
 	
 
-        constructor($scope: ng.IScope, Tama: any) {
-			let tama = new Tama;
-
-            this.scope = $scope;
-            this.tamaName = tama.name;
-          
-
         }
+
+		feed(): void { 
+		
+			this.tamaFact.tamagotchi.feed(); 
+			
+		} 
 	}
 
 }

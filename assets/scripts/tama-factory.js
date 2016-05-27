@@ -5,7 +5,6 @@ var Application;
     (function (Factories) {
         var Tama = (function () {
             function Tama() {
-                //return this.createUsers(RandomUsers);
                 return this.createTama();
             }
             Tama.prototype.createTama = function () {
