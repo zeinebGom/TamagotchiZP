@@ -2,30 +2,29 @@ class Tamagotchi {
 	private name: string;
 	private health: number;
 	private money: number;
-	private hyg: number;
+	private cleanness: number;
 	private workLevel: number;
 	private promoteLevel: string;
 	private initialHealth: number;
 	private initialMoney: number;
-	private initialHyg: number;
+	private initialCleanness: number;
 	private initialWorkLevel: number;
 
 
-	constructor(name: string, health: number, money: number, hyg:number, workLevel:number) {
+	constructor(name: string, health: number, money: number, cleanness: number, workLevel: number) {
 		this.name = name;
 		this.health = this.initialHealth = health;
 		this.money = this.initialMoney = money;
-		this.hyg = this.initialHyg = hyg;
+		this.cleanness = this.initialCleanness= cleanness;
 		this.workLevel = this.initialWorkLevel = workLevel;
 		this.promote();
 	}
 
-	/* Restart game */
-	restartGame(): void {
-		console.log('Santé ini ' + this.initialHealth);
+	/* Reset the Tamagotch */
+	reset(): void {
 		this.health = this.initialHealth;
 		this.money = this.initialMoney;
-		this.hyg = this.initialHyg;
+		this.cleanness = this.initialCleanness;
 		this.workLevel = this.initialWorkLevel;
 		this.promote();
 	}
@@ -43,52 +42,99 @@ class Tamagotchi {
 		return this.money;
 	}
 
-	getHyg(): number {
-		return this.hyg;
+	getCleanness(): number {
+		return this.cleanness;
 	}
-	getPromoteLevel():string{
+
+	getPromoteLevel(): string {
 		return this.promoteLevel;
 	}
 	
 	// Feed the Tamagotchi
-	feed(): boolean {
+	feed(): any {
 		if (this.money > 0) {
 			this.health++;
 			this.money--;
-			return true;
+			return {
+				feed: true,
+				message: 'Thank you, I am going to eat an hamburger'
+			}
 		}
 		else
-			return false;
-
+			return {
+				feed: false,
+				message: 'Not enough money for lunch...'
+			}
 	}
 
 	// Clean the Tamagotchi 
-	clean(): boolean {
+	clean(): any {
 		if (this.money > 0) {
-			this.hyg++;
+			this.initialCleanness++;
 			this.money--;
-			return true;
+			return {
+				clean: true,
+				message: 'OK, I take my shower right now!'
+			}
 		} else
-		return false;
+			return {
+				clean: false,
+				message: 'Not enough money to have my shower...'
+			}
+
 	}
 
-	work ():void{
-		this.money += 10;
-		this.health -= 2;
-		this.workLevel += 10;
-		this.promote();
-	}
-
-	promote (): any{
-		if (this.workLevel == 0) {
-			return this.promoteLevel="Unemployed";
-		} else if ((this.workLevel > 0) && (this.workLevel < 50)) {
-			return this.promoteLevel = "Laborer";
-		} else if ((this.workLevel >= 51) && (this.workLevel < 200)) {
-			return this.promoteLevel = "Chief";
-		} else if (this.workLevel >= 201) {	
-			return this.promoteLevel = "Director";
+	// Go to work
+	work(): any {
+		if (this.health <= 2) {
+			return {
+				work: false,
+				message: 'So tired to work...'
+			}
 		}
+		else {
+			this.money += 10;
+			this.health -= 2;
+			this.workLevel += 10;
+			let promoteReturn = this.promote();
+
+			if(promoteReturn.hasNewPromoteLevel == true) {
+				return {
+					work: true,
+					message: promoteReturn.message
+				}
+			}
+
+			return {
+				work: true,
+				message: 'I am going to the office'
+			}
+		}
+	}
+
+	/* Check for the promote level, depending on the work level */
+	private promote (): any {
+		let oldPromoteLevel = this.promoteLevel;
+
+		if (this.workLevel == 0)
+			this.promoteLevel = "Unemployed";
+		else if ((this.workLevel > 0) && (this.workLevel < 50))
+			this.promoteLevel = "Laborer";
+		else if ((this.workLevel >= 51) && (this.workLevel < 200))
+			this.promoteLevel = "Chief";
+		else
+		 	this.promoteLevel = "Director";
+
+		if (this.promoteLevel != oldPromoteLevel)
+			return {
+				hasNewPromoteLevel: true,
+				message: 'You are now ' + this.promoteLevel
+			}
+		else
+			return {
+				hasNewPromoteLevel: false,
+				message: ''
+			}
 	}
 
 

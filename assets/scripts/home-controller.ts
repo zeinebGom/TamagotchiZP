@@ -1,43 +1,57 @@
 /// <reference path="angular.d.ts" />
+/// <reference path="models/tamagotchi.ts" />
+
 
 module Application.Controllers {
 	export class HomeController {
-		
-		
-		scope:any;
-	
-	
-		tamaFact: any;
-		promo: number;
-		constructor($scope: ng.IScope, TamaFact: any) {
-			this.tamaFact = new TamaFact;
+		private scope: any;
+		private tamaFact: any;
+		private notification: string;
+		private timeout: any;
+
+		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, TamaFact: any) {
+			this.tamaFact = new TamaFact('Tamachi', 20, 300, 30, 10);
 			this.scope = $scope;
-			 // this.name = this.tama.tamagotchi.getName();
-			 // this.health = this.tama.tamagotchi.getHealth();
-			 // this.money = this.tama.tamagotchi.getMoney();
-
-
-			console.log(this.tamaFact);
-			
-
-			
+			this.timeout = $timeout;
         }
 
-		feed(): void { 
-		
-			this.tamaFact.tamagotchi.feed(); 
-			
-		} 
-		clean():void{
-			this.tamaFact.tamagotchi.clean();
+        /* Feed the Tamagotch */
+		feed(): any { 
+			let feed = this.tamaFact.tamagotchi.feed();
+			this.notify(feed.message);
+		}
 
+		/* Clean the Tamagotch */
+		clean(): any {
+			let clean = this.tamaFact.tamagotchi.clean();
+			this.notify(clean.message);
 		}
-		work ():void {
-			this.tamaFact.tamagotchi.work();
+
+		/* Go to work */
+		work(): any {
+			let work = this.tamaFact.tamagotchi.work();
+			this.notify(work.message);
 		}
 		
+		/* Restart playing */
 		restartGame(): void {
-			this.tamaFact.tamagotchi.restartGame();
+			this.tamaFact.tamagotchi.reset();
+			this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
+		}
+
+		/* Display a notification message */
+		private notify(notification: string): void {
+			this.notification = notification;
+
+			this.timeout(() => {
+				this.scope.$apply(() => {
+					this.notification = '';
+				});
+
+			
+			}, 5000, true);
+
+
 		}
 
 	}

@@ -9,6 +9,6 @@ var appModule = angular.module("tamaApp", []);
 
 appModule.factory("Tama", ()=> Application.Factories.Tama);
 
-appModule.controller("HomeController", ["$scope", "Tama", ($scope,Tama) => 
-	new Application.Controllers.HomeController($scope,Tama)]);
+appModule.controller("HomeController", ["$scope", "$timeout", "Tama", ($scope, $timeout, Tama) => 
+	new Application.Controllers.HomeController($scope, $timeout, Tama)]);
 
