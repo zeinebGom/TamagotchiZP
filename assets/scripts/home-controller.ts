@@ -8,6 +8,7 @@ module Application.Controllers {
 	
 	
 		tamaFact: any;
+		promo: number;
 		constructor($scope: ng.IScope, TamaFact: any) {
 			this.tamaFact = new TamaFact;
 			this.scope = $scope;
@@ -18,8 +19,8 @@ module Application.Controllers {
 
 			console.log(this.tamaFact);
 			
-	
 
+			
         }
 
 		feed(): void { 
@@ -28,9 +29,14 @@ module Application.Controllers {
 			
 		} 
 		clean():void{
-			this.tamaFact.tamagotchi.cleen();
-			
+			this.tamaFact.tamagotchi.clean();
+
 		}
+		work ():void {
+			this.tamaFact.tamagotchi.work();
+			console.log(this.tamaFact.tamagotchi.getPromoteLevel());
+		}
+		
 	}
 
 }

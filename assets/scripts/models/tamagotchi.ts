@@ -3,13 +3,18 @@ class Tamagotchi {
 	private health: number;
 	private money: number;
 	private hyg: number;
+	private workLevel: number;
+	private promoteLevel: string;
 
 
-	constructor(name: string, health: number, money: number, hyg:number) {
+
+	constructor(name: string, health: number, money: number, hyg:number, workLevel:number) {
 		this.name = name;
 		this.health = health;
 		this.money = money;
 		this.hyg = hyg;
+		this.workLevel = workLevel;
+		this.promote();
 	}
 
 	/* Getters functions */
@@ -25,6 +30,13 @@ class Tamagotchi {
 		return this.money;
 	}
 
+	getHyg(): number {
+		return this.hyg;
+	}
+	getPromoteLevel():string{
+		return this.promoteLevel;
+	}
+	
 	// Feed the Tamagotchi
 	feed(): boolean {
 		if (this.money > 0) {
@@ -43,6 +55,24 @@ class Tamagotchi {
 			this.money--;
 			return true;
 		} else
-			return false;
+		return false;
+	}
+	work ():void{
+		this.money += 10;
+		this.health -= 2;
+		this.workLevel += 10;
+		this.promote();
+	}
+
+	promote (): any{
+		if (this.workLevel == 0) {
+			return this.promoteLevel="unemployed";
+		} else if ((this.workLevel > 0) && (this.workLevel < 50)) {
+			return this.promoteLevel = "laborer";
+		} else if ((this.workLevel >= 51) && (this.workLevel < 200)) {
+			return this.promoteLevel = "chief";
+		} else if (this.workLevel >= 201) {	
+			return this.promoteLevel = "director";
+		}
 	}
 }
