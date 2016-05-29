@@ -55,26 +55,37 @@ hr {
   margin: 0 auto;
   padding: 0; }
 
-.tama-actions {
+.tama-action-bar {
   position: absolute;
   top: 183px;
-  left: 132px;
+  left: 50%;
   z-index: 100; }
-  .tama-actions ul {
+  .tama-action-bar ul {
     padding: 0 5px; }
-    .tama-actions ul li {
+    .tama-action-bar ul li {
       display: block;
       padding: 5px;
       border: 1px solid #DDDDDD;
       border-radius: 5px;
       margin-bottom: 3px;
       background-color: #FFFFFF; }
-      .tama-actions ul li:hover, .tama-actions ul li:active {
+      .tama-action-bar ul li:hover, .tama-action-bar ul li:active {
         color: #FFFFFF;
         background-color: #333333;
         border-color: #333333; }
-      .tama-actions ul li i.fa {
+      .tama-action-bar ul li.danger {
+        color: #FFFFFF;
+        background-color: #DF382C;
+        border-color: #DF382C; }
+        .tama-action-bar ul li.danger:hover, .tama-action-bar ul li.danger:active {
+          color: #FFFFFF;
+          background-color: #DF382C;
+          border-color: #DF382C; }
+      .tama-action-bar ul li i.fa {
         padding-right: 10px; }
+  .tama-action-bar .tama-actions {
+    position: relative;
+    left: -50%; }
 
 /* Medium and large */
 

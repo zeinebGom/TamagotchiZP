@@ -72,10 +72,10 @@ hr {
 	padding: 0;
 }
 
-.tama-actions {
+.tama-action-bar {
 	position: absolute;
 	top: 183px;
-	left: 132px;
+	left: 50%;
 	z-index: 100;
 
 	ul {
@@ -95,10 +95,27 @@ hr {
 				border-color: $tama-action-active-background-color;
 			}
 
+			&.danger {
+				color: $tama-action-danger-color;
+				background-color: $tama-action-danger-background-color;
+				border-color: $tama-action-danger-background-color;
+
+				&:hover, &:active {
+					color: $tama-action-danger-color;
+					background-color: $tama-action-danger-background-color;
+					border-color: $tama-action-danger-background-color;
+				}
+			}
+
 			i.fa {
 				padding-right: $tama-action-icon-padding-right;
 			}
 		}
+	}
+
+	.tama-actions {
+		position: relative;
+		left: -50%;
 	}
 
 }

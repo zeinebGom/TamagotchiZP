@@ -85,9 +85,9 @@
 					</div>
 				</div>
 
-				<div class="row tama-actions animate-show" ng-hide="homeCtl.hideActionsBar">
+				<div class="row tama-action-bar animate-show" ng-hide="homeCtl.hideActionsBar">
 					<div class="col-xs-12 col-md-12 col-lg-12">
-						<div>
+						<div class="tama-actions">
 							<ul>
 								<li ng-click="homeCtl.feed()"><i class="fa fa-cutlery" aria-hidden="true"></i>Eat</li>
 								<li ng-click="homeCtl.clean()"><i class="fa fa-leaf" aria-hidden="true"></i>Wash</li>
@@ -95,7 +95,7 @@
 								<li ng-click="homeCtl.playFootball()"><i class="fa fa-futbol-o" aria-hidden="true"></i>Football</li>
 								<li ng-click="homeCtl.goCinema()"><i class="fa fa-film" aria-hidden="true"></i>Cinema</li>
 								<li ng-click="homeCtl.sleep()"><i class="fa fa-bed" aria-hidden="true"></i>Sleep</li>
-								<li ng-click="homeCtl.restartGame()"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
+								<li class="danger" ng-click="homeCtl.restartGame(); homeCtl.hideActionsBar = !homeCtl.hideActionsBar;"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
 							</ul>
 						</div>
 					</div>

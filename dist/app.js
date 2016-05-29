@@ -189,6 +189,7 @@ var Application;
                 this.timeout = $timeout;
                 this.hideActionsBar = true;
                 this.showNotification = true;
+                this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
                 var now = new Date();
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
             }
