@@ -23,7 +23,7 @@ module Application.Controllers {
 			this.timeout = $timeout;
 			this.hideActionsBar = true;
 			this.showNotification = true;
-			this.showHelpWindow = true;
+			this.showHelpWindow = false;
 			this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
 
 			let now = new Date();
