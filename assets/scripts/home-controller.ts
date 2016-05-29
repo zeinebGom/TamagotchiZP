@@ -11,8 +11,8 @@ module Application.Controllers {
 		private notification: string;
 		private hour: any;
 		private hideActionsBar: boolean;
-
 		private showNotification: boolean;
+		private showHelpWindow: boolean;
 
 		private static notifications: number = 0;
 
@@ -23,6 +23,7 @@ module Application.Controllers {
 			this.timeout = $timeout;
 			this.hideActionsBar = true;
 			this.showNotification = true;
+			this.showHelpWindow = true;
 			this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
 
 			let now = new Date();
@@ -70,6 +71,11 @@ module Application.Controllers {
 		restartGame(): void {
 			this.tamaFact.tamagotchi.reset();
 			this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
+		}
+
+		/* Display help message */
+		help(): void {
+			this.showHelpWindow = true;
 		}
 
 		/* Display a notification message */

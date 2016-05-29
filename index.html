@@ -28,7 +28,7 @@
 		</section>
 
 
-		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() == 0">
+		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() == 0 && homeCtl.showHelpWindow == false">
 			<div class="container tama-main-content">
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
@@ -40,8 +40,7 @@
 			</div>
 		</section>
 
-
-		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0">
+		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0 && homeCtl.showHelpWindow == false">
 			<div class="container tama-main-content">
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
@@ -87,19 +86,31 @@
 
 				<div class="row tama-action-bar animate-show" ng-hide="homeCtl.hideActionsBar">
 					<div class="col-xs-12 col-md-12 col-lg-12">
-						<div class="tama-actions">
-							<ul>
-								<li ng-click="homeCtl.feed()"><i class="fa fa-cutlery" aria-hidden="true"></i>Eat</li>
-								<li ng-click="homeCtl.clean()"><i class="fa fa-leaf" aria-hidden="true"></i>Wash</li>
-								<li ng-click="homeCtl.work()"><i class="fa fa-desktop" aria-hidden="true"></i>Work</li>
-								<li ng-click="homeCtl.playFootball()"><i class="fa fa-futbol-o" aria-hidden="true"></i>Football</li>
-								<li ng-click="homeCtl.goCinema()"><i class="fa fa-film" aria-hidden="true"></i>Cinema</li>
-								<li ng-click="homeCtl.sleep()"><i class="fa fa-bed" aria-hidden="true"></i>Sleep</li>
-								<li class="danger" ng-click="homeCtl.restartGame(); homeCtl.hideActionsBar = !homeCtl.hideActionsBar;"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
-							</ul>
+						<div class="tama-action-buttons row no-gutters">
+							<div class="col-xs-4 col-md-4 col-lg-4">
+								<ul>
+									<li ng-click="homeCtl.feed()"><i class="fa fa-cutlery" aria-hidden="true"></i>Eat</li>
+									<li ng-click="homeCtl.clean()"><i class="fa fa-leaf" aria-hidden="true"></i>Wash</li>
+									<li ng-click="homeCtl.sleep()"><i class="fa fa-bed" aria-hidden="true"></i>Sleep</li>
+								</ul>
+							</div>
+							<div class="col-xs-4 col-md-4 col-lg-4">
+								<ul>
+									<li ng-click="homeCtl.work()"><i class="fa fa-desktop" aria-hidden="true"></i>Work</li>
+									<li ng-click="homeCtl.playFootball()"><i class="fa fa-futbol-o" aria-hidden="true"></i>Football</li>
+									<li ng-click="homeCtl.goCinema()"><i class="fa fa-film" aria-hidden="true"></i>Cinema</li>
+								</ul>
+							</div>
+							<div class="col-xs-4 col-md-4 col-lg-4">
+								<ul>
+									<li ng-click="homeCtl.help(); homeCtl.hideActionsBar = !homeCtl.hideActionsBar; showHelpWindow = true;"><i class="fa fa-question" aria-hidden="true"></i>Help</li>
+									<li class="danger" ng-click="homeCtl.restartGame(); homeCtl.hideActionsBar = !homeCtl.hideActionsBar;"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
+
 
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
@@ -123,6 +134,33 @@
 			</div>
 		</section>
 		
+		<section ng-show="homeCtl.showHelpWindow == true">
+			<div class="container tama-main-content">
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12">
+						<div class="tama-help">
+							<h3 class="col-centered">Help</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+							<div class="col-centered">
+								<button class="btn btn-success" ng-click="homeCtl.showHelpWindow = false;"><i class="fa fa-close" aria-hidden="true"></i>Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		
 		
 	

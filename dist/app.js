@@ -189,6 +189,7 @@ var Application;
                 this.timeout = $timeout;
                 this.hideActionsBar = true;
                 this.showNotification = true;
+                this.showHelpWindow = true;
                 this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
                 var now = new Date();
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
@@ -227,6 +228,10 @@ var Application;
             HomeController.prototype.restartGame = function () {
                 this.tamaFact.tamagotchi.reset();
                 this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
+            };
+            /* Display help message */
+            HomeController.prototype.help = function () {
+                this.showHelpWindow = true;
             };
             /* Display a notification message */
             HomeController.prototype.notify = function (notification) {

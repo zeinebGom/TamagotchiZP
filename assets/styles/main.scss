@@ -13,6 +13,22 @@ body {
 	text-align: center;
 }
 
+.row {
+	margin: 0;
+}
+
+.row.no-gutters {
+	margin-right: 0;
+	margin-left: 0;
+
+	& > [class^="col-"],
+	& > [class*=" col-"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+
 hr {
 	margin: 6px 0 0 0;
 }
@@ -74,7 +90,8 @@ hr {
 
 .tama-action-bar {
 	position: absolute;
-	top: 183px;
+	width: 100%;
+	top: 320px;
 	left: 50%;
 	z-index: 100;
 
@@ -113,13 +130,27 @@ hr {
 		}
 	}
 
-	.tama-actions {
+	.tama-action-buttons {
 		position: relative;
 		left: -50%;
 	}
 
 }
 
+
+.tama-help {
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	p {
+		padding: 0 5px;
+	}
+
+	i.fa {
+		padding-right: $tama-action-icon-padding-right;
+	}
+}
 
 /* Medium and large */
 @media screen and (min-width: 700px) {

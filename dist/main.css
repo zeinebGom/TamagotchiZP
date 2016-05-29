@@ -17,6 +17,16 @@ body {
 .col-centered {
   text-align: center; }
 
+.row {
+  margin: 0; }
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0; }
+  .row.no-gutters > [class^="col-"], .row.no-gutters > [class*=" col-"] {
+    padding-left: 0;
+    padding-right: 0; }
+
 hr {
   margin: 6px 0 0 0; }
 
@@ -57,7 +67,8 @@ hr {
 
 .tama-action-bar {
   position: absolute;
-  top: 183px;
+  width: 100%;
+  top: 320px;
   left: 50%;
   z-index: 100; }
   .tama-action-bar ul {
@@ -83,9 +94,18 @@ hr {
           border-color: #DF382C; }
       .tama-action-bar ul li i.fa {
         padding-right: 10px; }
-  .tama-action-bar .tama-actions {
+  .tama-action-bar .tama-action-buttons {
     position: relative;
     left: -50%; }
+
+.tama-help {
+  position: absolute;
+  top: 0;
+  left: 0; }
+  .tama-help p {
+    padding: 0 5px; }
+  .tama-help i.fa {
+    padding-right: 10px; }
 
 /* Medium and large */
 
