@@ -18,12 +18,10 @@ body {
   text-align: center; }
 
 .row {
-  margin: 0; }
-
-.row.no-gutters {
+  margin: 0;
   margin-right: 0;
   margin-left: 0; }
-  .row.no-gutters > [class^="col-"], .row.no-gutters > [class*=" col-"] {
+  .row > [class^="col-"], .row > [class*=" col-"] {
     padding-left: 0;
     padding-right: 0; }
 
