@@ -184,11 +184,13 @@ var Application;
     (function (Controllers) {
         var HomeController = (function () {
             function HomeController($scope, $timeout, TamaFact) {
-                this.tamaFact = new TamaFact('Tamachi', 20, 30, 30, 10);
+                this.tamaFact = new TamaFact('Tamachi', 30, 30, 30, 10);
                 this.scope = $scope;
                 this.timeout = $timeout;
+                this.hideActionsBar = true;
+                this.showNotification = true;
                 var now = new Date();
-                this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + now.getMinutes() + (now.getHours() > 12 ? 'PM' : 'AM');
+                this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
             }
             /* Feed the Tamagotch */
             HomeController.prototype.feed = function () {
@@ -229,13 +231,15 @@ var Application;
             HomeController.prototype.notify = function (notification) {
                 var _this = this;
                 HomeController.notifications++;
+                this.showNotification = true;
                 this.notification = notification;
                 this.timeout(function () {
                     _this.scope.$apply(function () {
                         // The notification message area is erased if the number of notifications is 0
                         HomeController.notifications--;
-                        if (HomeController.notifications == 0)
-                            _this.notification = '';
+                        if (HomeController.notifications == 0) {
+                            _this.showNotification = false;
+                        }
                     });
                 }, 5000, true);
             };

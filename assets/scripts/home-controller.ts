@@ -10,18 +10,22 @@ module Application.Controllers {
 		private tamaFact: any;
 		private notification: string;
 		private hour: any;
-		private showActionsBar: boolean;
+		private hideActionsBar: boolean;
+
+		private showNotification: boolean;
 
 		private static notifications: number = 0;
 
 
 		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, TamaFact: any) {
-			this.tamaFact = new TamaFact('Tamachi', 20, 30, 30, 10);
+			this.tamaFact = new TamaFact('Tamachi', 30, 30, 30, 10);
 			this.scope = $scope;
 			this.timeout = $timeout;
+			this.hideActionsBar = true;
+			this.showNotification = true;
 
 			let now = new Date();
-			this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + now.getMinutes() + (now.getHours() > 12 ? 'PM' : 'AM');
+			this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
         }
 
         /* Feed the Tamagotch */
@@ -70,6 +74,7 @@ module Application.Controllers {
 		/* Display a notification message */
 		private notify(notification: string): void {
 			HomeController.notifications++;
+			this.showNotification = true;
 			this.notification = notification;
 
 			this.timeout(() => {
@@ -77,8 +82,9 @@ module Application.Controllers {
 
 					// The notification message area is erased if the number of notifications is 0
 					HomeController.notifications--;
-					if (HomeController.notifications == 0)
-						this.notification = '';
+					if (HomeController.notifications == 0) {
+						this.showNotification = false;
+					}
 				});
 			}, 5000, true);
 
