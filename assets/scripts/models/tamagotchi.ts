@@ -1,19 +1,23 @@
 class Tamagotchi {
 	private name: string;
 	private health: number;
+	private happiness: number;
 	private money: number;
 	private cleanness: number;
 	private workLevel: number;
 	private promoteLevel: string;
 	private initialHealth: number;
+	private initialHappiness: number;
 	private initialMoney: number;
 	private initialCleanness: number;
 	private initialWorkLevel: number;
 
 
-	constructor(name: string, health: number, money: number, cleanness: number, workLevel: number) {
+
+	constructor(name: string, health: number, happiness: number, money: number, cleanness: number, workLevel: number) {
 		this.name = name;
 		this.health = this.initialHealth = health;
+		this.happiness = this.initialHappiness = happiness;
 		this.money = this.initialMoney = money;
 		this.cleanness = this.initialCleanness= cleanness;
 		this.workLevel = this.initialWorkLevel = workLevel;
@@ -23,6 +27,7 @@ class Tamagotchi {
 	/* Reset the Tamagotch */
 	reset(): void {
 		this.health = this.initialHealth;
+		this.happiness = this.initialHappiness;
 		this.money = this.initialMoney;
 		this.cleanness = this.initialCleanness;
 		this.workLevel = this.initialWorkLevel;
@@ -44,6 +49,14 @@ class Tamagotchi {
 
 	getCleanness(): number {
 		return this.cleanness;
+	}
+
+	getHappiness(): number {
+		return this.happiness;
+	}
+
+	getWorkLevel() : number {
+		return this.workLevel;
 	}
 
 	getPromoteLevel(): string {
@@ -70,7 +83,7 @@ class Tamagotchi {
 	// Clean the Tamagotchi 
 	clean(): any {
 		if (this.money > 0) {
-			this.initialCleanness++;
+			this.cleanness = this.initialCleanness;
 			this.money--;
 			return {
 				clean: true,
@@ -111,6 +124,51 @@ class Tamagotchi {
 			}
 		}
 	}
+
+	/* Play football */
+	playFootball(): any {
+		if (this.health <= 2) {
+			return {
+				work: false,
+				message: 'So tired to play football...'
+			}
+		}
+		else {
+			this.health += 2;
+			this.happiness += 1;
+			this.money--;
+
+			return {
+				work: true,
+				message: 'Playing football with my friends'
+			}
+		}
+	}
+
+	/* Sleep */
+	sleep(): any {
+		this.health += 15;
+
+		return {
+			sleep: true,
+			message: 'Yes, I am going to sleep a little'
+		}
+	}
+
+	/* Go to cinema */
+	goCinema(): any {
+		this.happiness += 4;
+		this.health--;
+		this.money -= 2;
+		this.cleanness--;
+
+		return {
+			goCinema: true,
+			message: 'Yeah, I am going to watch a nice movie!'
+		}
+
+	}
+
 
 	/* Check for the promote level, depending on the work level */
 	private promote (): any {

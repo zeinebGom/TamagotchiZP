@@ -1,33 +1,111 @@
 @import 'partials/_variables';
+@import 'partials/_animations';
+
+body {
+	width: $body-width;
+	margin: $body-margin;
+	background-image: url('images/iphone.png');
+	background-repeat: no-repeat;
+	background-position: center 0;
+}
 
 .col-centered {
 	text-align: center;
 }
 
+hr {
+	margin-top: 6px;
+}
+
+.iphone-header {
+	height: $iphone-header-height;
+	margin-top: $iphone-header-margin-top;
+	color: $iphone-color;
+	background-color: $iphone-background-color;
+
+	.iphone-signal {
+		position: absolute;
+		top: 0;
+		left: 4px;
+	}
+
+	.iphone-battery {
+		position: absolute;
+		top: 0;
+		left: 313px;
+	}
+}
+
 .tama-header {
+	h1 {
+		margin: 0;
+	}
+}
+
+
+.tama-status {
 	div {
 		display: inline-block;
-		border-right: $header-border;
-		padding: 0 10px;
+		border-right: $tama-status-border;
+		padding: $tama-status-categorie-padding;
+		height: $tama-status-height;
 
 		&:last-child {
 			border-right: none;
+		}
+
+		span {
+			display: block;
+
+			&:first-child {
+				vertical-align: top;
+			}
 		}
 	}
 
 }
 
-.main-content {
-	margin-top: 50px;
+.tama-main-content {
+	width: 333px;
+	position: relative;
+	margin: $tama-main-content-margin;
+	padding: 0;
 }
 
-.tama-main {
-	background: $tama-main-background;
-	min-height: 478px;
+.tama-actions {
+	position: absolute;
+	top: 200px;
+	left: 132px;
+	z-index: 100;
+
+	ul {
+		padding: $tama-actions-padding;
+
+		li {
+			display: block;
+			padding: $tama-action-padding;
+			border: $tama-action-border;
+			border-radius: $tama-action-border-radius;
+			margin-bottom: $tama-action-margin-bottom;
+			background-color: $tama-actions-background-color;
+
+			&:hover, &:active {
+				color: $tama-action-active-color;
+				background-color: $tama-action-active-background-color;
+				border-color: $tama-action-active-background-color;
+			}
+
+			i.fa {
+				padding-right: $tama-action-icon-padding-right;
+			}
+		}
+	}
+
 }
 
 
 /* Medium and large */
 @media screen and (min-width: 700px) {
+
 
 }

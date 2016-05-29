@@ -1,7 +1,8 @@
 var Tamagotchi = (function () {
-    function Tamagotchi(name, health, money, cleanness, workLevel) {
+    function Tamagotchi(name, health, happiness, money, cleanness, workLevel) {
         this.name = name;
         this.health = this.initialHealth = health;
+        this.happiness = this.initialHappiness = happiness;
         this.money = this.initialMoney = money;
         this.cleanness = this.initialCleanness = cleanness;
         this.workLevel = this.initialWorkLevel = workLevel;
@@ -10,6 +11,7 @@ var Tamagotchi = (function () {
     /* Reset the Tamagotch */
     Tamagotchi.prototype.reset = function () {
         this.health = this.initialHealth;
+        this.happiness = this.initialHappiness;
         this.money = this.initialMoney;
         this.cleanness = this.initialCleanness;
         this.workLevel = this.initialWorkLevel;
@@ -27,6 +29,12 @@ var Tamagotchi = (function () {
     };
     Tamagotchi.prototype.getCleanness = function () {
         return this.cleanness;
+    };
+    Tamagotchi.prototype.getHappiness = function () {
+        return this.happiness;
+    };
+    Tamagotchi.prototype.getWorkLevel = function () {
+        return this.workLevel;
     };
     Tamagotchi.prototype.getPromoteLevel = function () {
         return this.promoteLevel;
@@ -50,7 +58,7 @@ var Tamagotchi = (function () {
     // Clean the Tamagotchi 
     Tamagotchi.prototype.clean = function () {
         if (this.money > 0) {
-            this.initialCleanness++;
+            this.cleanness = this.initialCleanness;
             this.money--;
             return {
                 clean: true,
@@ -88,6 +96,43 @@ var Tamagotchi = (function () {
             };
         }
     };
+    /* Play football */
+    Tamagotchi.prototype.playFootball = function () {
+        if (this.health <= 2) {
+            return {
+                work: false,
+                message: 'So tired to play football...'
+            };
+        }
+        else {
+            this.health += 2;
+            this.happiness += 1;
+            this.money--;
+            return {
+                work: true,
+                message: 'Playing football with my friends'
+            };
+        }
+    };
+    /* Sleep */
+    Tamagotchi.prototype.sleep = function () {
+        this.health += 15;
+        return {
+            sleep: true,
+            message: 'Yes, I am going to sleep a little'
+        };
+    };
+    /* Go to cinema */
+    Tamagotchi.prototype.goCinema = function () {
+        this.happiness += 4;
+        this.health--;
+        this.money -= 2;
+        this.cleanness--;
+        return {
+            goCinema: true,
+            message: 'Yeah, I am going to watch a nice movie!'
+        };
+    };
     /* Check for the promote level, depending on the work level */
     Tamagotchi.prototype.promote = function () {
         var oldPromoteLevel = this.promoteLevel;
@@ -119,12 +164,12 @@ var Application;
     var Factories;
     (function (Factories) {
         var Tama = (function () {
-            function Tama(name, health, money, cleanness, workLevel) {
-                this.tamagotchi = this.createTama(name, health, money, cleanness, workLevel);
+            function Tama(name, health, happiness, money, cleanness, workLevel) {
+                this.tamagotchi = this.createTama(name, health, happiness, money, cleanness, workLevel);
             }
             /* Create a Tamagotchi */
-            Tama.prototype.createTama = function (name, health, money, cleanness, workLevel) {
-                return new Tamagotchi(name, health, money, cleanness, workLevel);
+            Tama.prototype.createTama = function (name, health, happiness, money, cleanness, workLevel) {
+                return new Tamagotchi(name, health, happiness, money, cleanness, workLevel);
             };
             return Tama;
         }());
@@ -139,9 +184,11 @@ var Application;
     (function (Controllers) {
         var HomeController = (function () {
             function HomeController($scope, $timeout, TamaFact) {
-                this.tamaFact = new TamaFact('Tamachi', 20, 300, 30, 10);
+                this.tamaFact = new TamaFact('Tamachi', 20, 30, 30, 10);
                 this.scope = $scope;
                 this.timeout = $timeout;
+                var now = new Date();
+                this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + now.getMinutes() + (now.getHours() > 12 ? 'PM' : 'AM');
             }
             /* Feed the Tamagotch */
             HomeController.prototype.feed = function () {
@@ -158,6 +205,21 @@ var Application;
                 var work = this.tamaFact.tamagotchi.work();
                 this.notify(work.message);
             };
+            /* Play football */
+            HomeController.prototype.playFootball = function () {
+                var playFootball = this.tamaFact.tamagotchi.playFootball();
+                this.notify(playFootball.message);
+            };
+            /* Sleep */
+            HomeController.prototype.sleep = function () {
+                var sleep = this.tamaFact.tamagotchi.sleep();
+                this.notify(sleep.message);
+            };
+            /* Go to cinema */
+            HomeController.prototype.goCinema = function () {
+                var goCinema = this.tamaFact.tamagotchi.goCinema();
+                this.notify(goCinema.message);
+            };
             /* Restart playing */
             HomeController.prototype.restartGame = function () {
                 this.tamaFact.tamagotchi.reset();
@@ -166,13 +228,18 @@ var Application;
             /* Display a notification message */
             HomeController.prototype.notify = function (notification) {
                 var _this = this;
+                HomeController.notifications++;
                 this.notification = notification;
                 this.timeout(function () {
                     _this.scope.$apply(function () {
-                        _this.notification = '';
+                        // The notification message area is erased if the number of notifications is 0
+                        HomeController.notifications--;
+                        if (HomeController.notifications == 0)
+                            _this.notification = '';
                     });
                 }, 5000, true);
             };
+            HomeController.notifications = 0;
             return HomeController;
         }());
         Controllers.HomeController = HomeController;
@@ -181,7 +248,7 @@ var Application;
 /// <reference path="angular.d.ts" />
 /// <reference path="tama-factory.ts" />
 /// <reference path="home-controller.ts" />
-var appModule = angular.module("tamaApp", []);
+var appModule = angular.module("tamaApp", ['ngAnimate']);
 appModule.factory("Tama", function () { return Application.Factories.Tama; });
 appModule.controller("HomeController", ["$scope", "$timeout", "Tama", function ($scope, $timeout, Tama) {
         return new Application.Controllers.HomeController($scope, $timeout, Tama);

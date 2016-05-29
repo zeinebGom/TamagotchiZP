@@ -4,25 +4,33 @@
 	<meta charset="UTF-8">
 	<title>iGotchi</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="dist/main.css">
+
 
 </head>
 <body ng-app="tamaApp">
 
-		<section>
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-						<h1>iGotchi</h1>
-					</div>
-				</div>
+	<div ng-controller="HomeController as homeCtl">
+		<section class="iphone-header">
+			<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+				<span class="iphone-signal"><i class="fa fa-signal" aria-hidden="true"></i>&nbsp;4G</span>
+				<span ng-bind="homeCtl.hour"></span>
+				<span class="iphone-battery"><i class="fa fa-battery-3" aria-hidden="true"></i></span>
 			</div>
 		</section>
 
-	<div ng-controller="HomeController as homeCtl">
+
+		<section class="tama-header">
+			<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+				<h1>iGotchi</h1>
+			</div>
+		</section>
+
+
 		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() == 0">
 			<div class="container" style="width: 400px; height: 400px;">
-				<div class="row main-content">
+				<div class="row tama-main-content">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
 						<p>You have lost! Your iGotchi {{ homeCtl.tamaFact.tamagotchi.getName() }} is dead...</p>
 
@@ -34,34 +42,37 @@
 
 
 		<section ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0">
-			<div class="container main-content">
+			<div class="container tama-main-content">
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-						<div class="tama-header">
+						<div class="tama-status">
 							<div>
-								<span class="glyphicon glyphicon-user"></span>
+								<span><i class="fa fa-user"></i></span>
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getName()"></span>
 							</div>
 
 							<div>
-								<span class="glyphicon glyphicon-heart"></span>
+								<span><i class="fa fa-heart"></i></span>
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getHealth()"></span>
 							</div>
+
 							<div>
-								<span>Cleanness</span>
+								<span><i class="fa fa-smile-o"></i></span>
+								<span ng-bind="homeCtl.tamaFact.tamagotchi.getHappiness()"></span>
+							</div>
+
+							<div>
+								<span><i class="fa fa-trash"></i></span>
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getCleanness()"></span>
 							</div>
 							<div>
-								<span class="glyphicon glyphicon-euro"></span>
+								<span><i class="fa fa-eur"></i></span>
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getMoney()"></span>
 							</div>
 							<div>
-								<span>Promote: </span>
+								<span><i class="fa fa-users"></i></span>
 								<span ng-bind="homeCtl.tamaFact.tamagotchi.getPromoteLevel()"></span>
 							</div>
-
-
-
 						</div>
 					</div>
 				</div>
@@ -70,15 +81,32 @@
 
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-						<div class="tama-main">
-							<button class="btn btn-lg btn-success" ng-click="homeCtl.feed()">Feed</button>
-							<button class="btn btn-lg btn-success" ng-click="homeCtl.clean()">Wash</button>
-							<button class="btn btn-lg btn-success" ng-click="homeCtl.work()">Work</button>
+						<img src="dist/images/tamagotchi.png" alt="Tamagotchi Avatar" />
+					</div>
+				</div>
 
-
-							<button class="btn btn-lg btn-danger" ng-click="homeCtl.restartGame()">Restart</button>
-
+				<div class="row tama-actions">
+					<div class="col-xs-12 col-md-12 col-lg-12" ng-show="homeCtl.showActionsBar">
+						<div class="col-centered">
+							<ul>
+								<li ng-click="homeCtl.feed()"><i class="fa fa-cutlery" aria-hidden="true"></i>Eat</li>
+								<li ng-click="homeCtl.clean()"><i class="fa fa-leaf" aria-hidden="true"></i>Wash</li>
+								<li ng-click="homeCtl.work()"><i class="fa fa-desktop" aria-hidden="true"></i>Work</li>
+								<li ng-click="homeCtl.playFootball()"><i class="fa fa-futbol-o" aria-hidden="true"></i>Football</li>
+								<li ng-click="homeCtl.goCinema()"><i class="fa fa-film" aria-hidden="true"></i>Cinema</li>
+								<li ng-click="homeCtl.sleep()"><i class="fa fa-bed" aria-hidden="true"></i>Sleep</li>
+								<li ng-click="homeCtl.restartGame()"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
+							</ul>
 						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+						<button class="btn btn-success" ng-click="homeCtl.showActionsBar = !homeCtl.showActionsBar">Actions&nbsp;
+							<span ng-hide="homeCtl.showActionsBar"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+							<span ng-show="homeCtl.showActionsBar"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+						</button>
 					</div>
 				</div>
 
@@ -87,12 +115,11 @@
 				<div class="row">
 					<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
 						<div class="tama-footer">
+							<span ng-show="homeCtl.notification.length > 0"><i class="fa fa-comment"></i>&nbsp;</span>
 							<span ng-bind="homeCtl.notification"></span>
 						</div>
 					</div>
 				</div>
-
-
 			</div>
 		</section>
 		
@@ -104,8 +131,10 @@
 	<footer>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		<script src="dist/app.js" type="text/javascript"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+		<script type="text/javascript" src="dist/app.js" type="text/javascript"></script>
+		<script type="text/javascript" src="https://use.fontawesome.com/b704cb508c.js"></script>
 	</footer>
 	
 </body>

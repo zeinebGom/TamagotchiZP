@@ -3,7 +3,7 @@
 /// <reference path="home-controller.ts" />
 
 
-var appModule = angular.module("tamaApp", []);
+var appModule = angular.module("tamaApp", ['ngAnimate']);
  
 
 

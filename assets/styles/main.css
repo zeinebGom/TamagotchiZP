@@ -1,19 +1,89 @@
+.fade-hide, .fade-show {
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  -o-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s; }
+
+.fade-hide {
+  opacity: 1; }
+
+.fade-hide.fade-hide-active {
+  opacity: 0; }
+
+.fade-show {
+  opacity: 0; }
+
+.fade-show.fade-show-active {
+  opacity: 1; }
+
+body {
+  width: 335px;
+  margin: 0 auto;
+  background-image: url("images/iphone.png");
+  background-repeat: no-repeat;
+  background-position: center 0; }
+
 .col-centered {
   text-align: center; }
 
-.tama-header div {
+hr {
+  margin-top: 6px; }
+
+.iphone-header {
+  height: 23px;
+  margin-top: 96px;
+  color: #FFFFFF;
+  background-color: #000000; }
+  .iphone-header .iphone-signal {
+    position: absolute;
+    top: 0;
+    left: 4px; }
+  .iphone-header .iphone-battery {
+    position: absolute;
+    top: 0;
+    left: 313px; }
+
+.tama-header h1 {
+  margin: 0; }
+
+.tama-status div {
   display: inline-block;
   border-right: 1px solid #DDDDDD;
-  padding: 0 10px; }
-  .tama-header div:last-child {
+  padding: 0 10px;
+  height: 40px; }
+  .tama-status div:last-child {
     border-right: none; }
+  .tama-status div span {
+    display: block; }
+    .tama-status div span:first-child {
+      vertical-align: top; }
 
-.main-content {
-  margin-top: 50px; }
+.tama-main-content {
+  width: 333px;
+  position: relative;
+  margin: 0 auto;
+  padding: 0; }
 
-.tama-main {
-  background: url("images/tamagotchi.png") center center no-repeat;
-  min-height: 478px; }
+.tama-actions {
+  position: absolute;
+  top: 200px;
+  left: 132px;
+  z-index: 100; }
+  .tama-actions ul {
+    padding: 0 5px; }
+    .tama-actions ul li {
+      display: block;
+      padding: 5px;
+      border: 1px solid #DDDDDD;
+      border-radius: 5px;
+      margin-bottom: 3px;
+      background-color: #FFFFFF; }
+      .tama-actions ul li:hover, .tama-actions ul li:active {
+        color: #FFFFFF;
+        background-color: #333333;
+        border-color: #333333; }
+      .tama-actions ul li i.fa {
+        padding-right: 10px; }
 
 /* Medium and large */
 
