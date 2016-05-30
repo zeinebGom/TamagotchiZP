@@ -60,7 +60,7 @@ var Tamagotchi = (function () {
     // Clean the Tamagotchi 
     Tamagotchi.prototype.clean = function () {
         if (this.money > 0) {
-            this.cleanness = this.initialCleanness;
+            this.cleanness++;
             this.money--;
             return {
                 clean: true,
@@ -240,6 +240,116 @@ var Application;
         Factories.TimerFactory = TimerFactory;
     })(Factories = Application.Factories || (Application.Factories = {}));
 })(Application || (Application = {}));
+var Application;
+(function (Application) {
+    var Directives;
+    (function (Directives) {
+        var TamaLoose = (function () {
+            function TamaLoose() {
+                return this.createDirective();
+            }
+            TamaLoose.prototype.createDirective = function () {
+                return {
+                    restrict: 'AE',
+                    templateUrl: './dist/templates/tama-loose.html',
+                    scope: {
+                        ctl: '='
+                    }
+                };
+            };
+            return TamaLoose;
+        }());
+        Directives.TamaLoose = TamaLoose;
+    })(Directives = Application.Directives || (Application.Directives = {}));
+})(Application || (Application = {}));
+var Application;
+(function (Application) {
+    var Directives;
+    (function (Directives) {
+        var TamaHelp = (function () {
+            function TamaHelp() {
+                return this.createDirective();
+            }
+            TamaHelp.prototype.createDirective = function () {
+                return {
+                    restrict: 'AE',
+                    templateUrl: './dist/templates/tama-help.html',
+                    scope: {
+                        ctl: '='
+                    }
+                };
+            };
+            return TamaHelp;
+        }());
+        Directives.TamaHelp = TamaHelp;
+    })(Directives = Application.Directives || (Application.Directives = {}));
+})(Application || (Application = {}));
+var Application;
+(function (Application) {
+    var Directives;
+    (function (Directives) {
+        var TamaStatus = (function () {
+            function TamaStatus() {
+                return this.createDirective();
+            }
+            TamaStatus.prototype.createDirective = function () {
+                return {
+                    restrict: 'AE',
+                    templateUrl: './dist/templates/tama-status.html',
+                    scope: {
+                        ctl: '='
+                    }
+                };
+            };
+            return TamaStatus;
+        }());
+        Directives.TamaStatus = TamaStatus;
+    })(Directives = Application.Directives || (Application.Directives = {}));
+})(Application || (Application = {}));
+var Application;
+(function (Application) {
+    var Directives;
+    (function (Directives) {
+        var TamaButton = (function () {
+            function TamaButton() {
+                return this.createDirective();
+            }
+            TamaButton.prototype.createDirective = function () {
+                return {
+                    restrict: 'AE',
+                    templateUrl: './dist/templates/tama-button.html',
+                    scope: {
+                        ctl: '='
+                    }
+                };
+            };
+            return TamaButton;
+        }());
+        Directives.TamaButton = TamaButton;
+    })(Directives = Application.Directives || (Application.Directives = {}));
+})(Application || (Application = {}));
+var Application;
+(function (Application) {
+    var Directives;
+    (function (Directives) {
+        var TamaNotification = (function () {
+            function TamaNotification() {
+                return this.createDirective();
+            }
+            TamaNotification.prototype.createDirective = function () {
+                return {
+                    restrict: 'AE',
+                    templateUrl: './dist/templates/tama-notification.html',
+                    scope: {
+                        ctl: '='
+                    }
+                };
+            };
+            return TamaNotification;
+        }());
+        Directives.TamaNotification = TamaNotification;
+    })(Directives = Application.Directives || (Application.Directives = {}));
+})(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
 /// <reference path="models/tamagotchi.ts" />
 var Application;
@@ -248,7 +358,7 @@ var Application;
     (function (Controllers) {
         var HomeController = (function () {
             function HomeController($scope, $timeout, $interval, TamaFact, TimerFact) {
-                this.tamaFact = new TamaFact('Tamachi', 6, 30, 30, 1, 10);
+                this.tamaFact = new TamaFact('Tamachi', 6000, 30, 30, 1, 10);
                 this.scope = $scope;
                 this.timeout = $timeout;
                 this.interval = $interval;
@@ -347,6 +457,11 @@ var Application;
 /// <reference path="angular.d.ts" />
 /// <reference path="tama-factory.ts" />
 /// <reference path="timer-factory.ts" />
+/// <reference path="tama-loose.ts" />
+/// <reference path="tama-help.ts" />
+/// <reference path="tama-status.ts" />
+/// <reference path="tama-button.ts" />
+/// <reference path="tama-notification.ts" />
 /// <reference path="home-controller.ts" />
 var appModule = angular.module("tamaApp", ['ngAnimate']);
 appModule.factory("TamaFactory", function () { return Application.Factories.TamaFactory; });
@@ -354,3 +469,8 @@ appModule.factory("TimerFactory", function () { return Application.Factories.Tim
 appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, TamaFactory, TimerFactory) {
         return new Application.Controllers.HomeController($scope, $timeout, $interval, TamaFactory, TimerFactory);
     }]);
+appModule.directive("tamaLoose", function () { return new Application.Directives.TamaLoose(); });
+appModule.directive("tamaHelp", function () { return new Application.Directives.TamaHelp(); });
+appModule.directive("tamaStatus", function () { return new Application.Directives.TamaStatus(); });
+appModule.directive("tamaButton", function () { return new Application.Directives.TamaButton(); });
+appModule.directive("tamaNotification", function () { return new Application.Directives.TamaNotification(); });

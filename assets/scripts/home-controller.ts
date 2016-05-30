@@ -21,7 +21,7 @@ module Application.Controllers {
 
 
 		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, TamaFact: any, TimerFact: any) {
-			this.tamaFact = new TamaFact('Tamachi', 6, 30, 30, 1, 10);
+			this.tamaFact = new TamaFact('Tamachi', 6000, 30, 30, 1, 10);
 			this.scope = $scope;
 			this.timeout = $timeout;
 			this.interval = $interval;

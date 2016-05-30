@@ -14,6 +14,9 @@ var jsSource =	[
 				];
 var jsTarget = "app.js";
 
+var htmlSource =	[
+						'./assets/scripts/templates/*.html'
+					];
 
 var cssSource =	[
 					'./assets/styles/main.css'
@@ -42,6 +45,14 @@ gulp.task('js', function() {
 });
 
 
+/* Copy template files */
+gulp.task('html', function() {
+	return	gulp.src(htmlSource)
+			.pipe(gulp.dest('./dist/templates/'))
+			.pipe(livereload());
+});
+
+
 /* Concat SASS files */
 gulp.task('sass', function () {
 	return	gulp.src(cssSource)
@@ -62,6 +73,7 @@ gulp.task('watch', function() {
 	livereload.listen();
 
 	gulp.watch(jsSource, ['js']);
+	gulp.watch(htmlSource, ['html']);
 	gulp.watch(cssSource, ['sass']);
 	gulp.watch(imgSource, ['img']);
 	gulp.watch('index.html', function() {

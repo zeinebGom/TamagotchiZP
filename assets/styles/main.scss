@@ -56,6 +56,9 @@ hr {
 	}
 }
 
+.tama-loose {
+	margin-top: 150px;
+}
 
 .tama-status {
 	div {
@@ -82,14 +85,13 @@ hr {
 .tama-main-content {
 	width: 333px;
 	position: relative;
-	margin: $tama-main-content-margin;
 	padding: 0;
 }
 
 .tama-action-bar {
 	position: absolute;
 	width: 100%;
-	top: 320px;
+	top: 235px;
 	left: 50%;
 	z-index: 100;
 
