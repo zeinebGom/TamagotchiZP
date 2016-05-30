@@ -1,0 +1,9 @@
+<div class="container tama-main-content tama-loose" ng-show="ctl.tamaFact.tamagotchi.getHealth() <= 0 && ctl.showHelpWindow == false">
+	<div class="row">
+		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+			<p>You have lost! Your iGotchi {{ ctl.tamaFact.tamagotchi.getName() }} is dead...</p>
+
+			<button class="btn btn-success" ng-click="ctl.restartGame()">Back to life</button>
+		</div>
+	</div>
+</div>

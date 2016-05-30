@@ -1,0 +1,37 @@
+<div class="container tama-main-content" ng-show="ctl.tamaFact.tamagotchi.getHealth() > 0 && ctl.showHelpWindow == false">
+	<div class="row">
+		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+			<hr />
+			<div class="tama-status">
+				<div>
+					<span><i class="fa fa-user"></i></span>
+					<span ng-bind="ctl.tamaFact.tamagotchi.getName()"></span>
+				</div>
+
+				<div>
+					<span><i class="fa fa-heart"></i></span>
+					<span ng-bind="ctl.tamaFact.tamagotchi.getHealth()"></span>
+				</div>
+
+				<div>
+					<span><i class="fa fa-smile-o"></i></span>
+					<span ng-bind="ctl.tamaFact.tamagotchi.getHappiness()"></span>
+				</div>
+
+				<div>
+					<span><i class="fa fa-yelp"></i></span>
+					<span ng-bind="ctl.tamaFact.tamagotchi.getCleanness()"></span>
+				</div>
+				<div>
+					<span><i class="fa fa-eur"></i></span>
+					<span ng-bind="ctl.tamaFact.tamagotchi.getMoney()"></span>
+				</div>
+				<div>
+					<span><i class="fa fa-users"></i></span>
+					<span ng-bind="ctl.tamaFact.tamagotchi.getPromoteLevel()"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
