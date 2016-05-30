@@ -3,7 +3,7 @@
 
 module Application.Factories {
 
-	export class Tama {
+	export class TamaFactory {
 		private tamagotchi: any;
 
 		constructor(name: string, health: number, happiness: number, money: number, cleanness: number, workLevel: number) {
@@ -15,5 +15,4 @@ module Application.Factories {
 			return new Tamagotchi(name, health, happiness, money, cleanness, workLevel);
 		}
 	}
-
 }

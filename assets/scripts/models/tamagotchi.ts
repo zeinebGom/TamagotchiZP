@@ -1,6 +1,9 @@
+
+/* This class provides an abstraction view of a Tamagotchi character */
 class Tamagotchi {
 	private name: string;
 	private health: number;
+	private isDead: boolean;
 	private happiness: number;
 	private money: number;
 	private cleanness: number;
@@ -17,6 +20,7 @@ class Tamagotchi {
 	constructor(name: string, health: number, happiness: number, money: number, cleanness: number, workLevel: number) {
 		this.name = name;
 		this.health = this.initialHealth = health;
+		this.isDead = false;
 		this.happiness = this.initialHappiness = happiness;
 		this.money = this.initialMoney = money;
 		this.cleanness = this.initialCleanness= cleanness;
@@ -127,22 +131,26 @@ class Tamagotchi {
 
 	/* Play football */
 	playFootball(): any {
-		if (this.health <= 2) {
+		/*if (this.health <= 2) {
 			return {
 				work: false,
 				message: 'So tired to play football...'
 			}
 		}
-		else {
+		else {*/
 			this.health += 2;
 			this.happiness += 1;
 			this.money--;
+			if (this.cleanness > 3)
+				this.cleanness = 3;
+			else
+				this.cleanness = 0;
 
 			return {
 				work: true,
 				message: 'Playing football with my friends'
 			}
-		}
+		/*}*/
 	}
 
 	/* Sleep */
@@ -158,7 +166,6 @@ class Tamagotchi {
 	/* Go to cinema */
 	goCinema(): any {
 		this.happiness += 4;
-		this.health--;
 		this.money -= 2;
 		this.cleanness--;
 
@@ -169,19 +176,23 @@ class Tamagotchi {
 
 	}
 
-
 	/* Check for the promote level, depending on the work level */
 	private promote (): any {
 		let oldPromoteLevel = this.promoteLevel;
 
 		if (this.workLevel == 0)
 			this.promoteLevel = "Unemployed";
-		else if ((this.workLevel > 0) && (this.workLevel < 50))
-			this.promoteLevel = "Laborer";
-		else if ((this.workLevel >= 51) && (this.workLevel < 200))
-			this.promoteLevel = "Chief";
-		else
-		 	this.promoteLevel = "Director";
+		else {
+
+			if ((this.workLevel > 0) && (this.workLevel < 50))
+				this.promoteLevel = "Laborer";
+			else {
+				if ((this.workLevel >= 51) && (this.workLevel < 200))
+					this.promoteLevel = "Chief";
+				else
+				 	this.promoteLevel = "Director";
+				}
+		}
 
 		if (this.promoteLevel != oldPromoteLevel)
 			return {
@@ -193,6 +204,17 @@ class Tamagotchi {
 				hasNewPromoteLevel: false,
 				message: ''
 			}
+	}
+
+
+	/* Auto modifications for some features */
+
+	/* Loose some health */
+	looseHealth(value: number, isIncrement: boolean): void {
+		if (isIncrement == true)
+			this.health += value;
+		else
+			this.health = value;
 	}
 
 

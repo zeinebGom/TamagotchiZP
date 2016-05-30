@@ -1,7 +1,9 @@
+/* This class provides an abstraction view of a Tamagotchi character */
 var Tamagotchi = (function () {
     function Tamagotchi(name, health, happiness, money, cleanness, workLevel) {
         this.name = name;
         this.health = this.initialHealth = health;
+        this.isDead = false;
         this.happiness = this.initialHappiness = happiness;
         this.money = this.initialMoney = money;
         this.cleanness = this.initialCleanness = cleanness;
@@ -98,21 +100,25 @@ var Tamagotchi = (function () {
     };
     /* Play football */
     Tamagotchi.prototype.playFootball = function () {
-        if (this.health <= 2) {
+        /*if (this.health <= 2) {
             return {
                 work: false,
                 message: 'So tired to play football...'
-            };
+            }
         }
-        else {
-            this.health += 2;
-            this.happiness += 1;
-            this.money--;
-            return {
-                work: true,
-                message: 'Playing football with my friends'
-            };
-        }
+        else {*/
+        this.health += 2;
+        this.happiness += 1;
+        this.money--;
+        if (this.cleanness > 3)
+            this.cleanness = 3;
+        else
+            this.cleanness = 0;
+        return {
+            work: true,
+            message: 'Playing football with my friends'
+        };
+        /*}*/
     };
     /* Sleep */
     Tamagotchi.prototype.sleep = function () {
@@ -125,7 +131,6 @@ var Tamagotchi = (function () {
     /* Go to cinema */
     Tamagotchi.prototype.goCinema = function () {
         this.happiness += 4;
-        this.health--;
         this.money -= 2;
         this.cleanness--;
         return {
@@ -138,12 +143,16 @@ var Tamagotchi = (function () {
         var oldPromoteLevel = this.promoteLevel;
         if (this.workLevel == 0)
             this.promoteLevel = "Unemployed";
-        else if ((this.workLevel > 0) && (this.workLevel < 50))
-            this.promoteLevel = "Laborer";
-        else if ((this.workLevel >= 51) && (this.workLevel < 200))
-            this.promoteLevel = "Chief";
-        else
-            this.promoteLevel = "Director";
+        else {
+            if ((this.workLevel > 0) && (this.workLevel < 50))
+                this.promoteLevel = "Laborer";
+            else {
+                if ((this.workLevel >= 51) && (this.workLevel < 200))
+                    this.promoteLevel = "Chief";
+                else
+                    this.promoteLevel = "Director";
+            }
+        }
         if (this.promoteLevel != oldPromoteLevel)
             return {
                 hasNewPromoteLevel: true,
@@ -155,7 +164,39 @@ var Tamagotchi = (function () {
                 message: ''
             };
     };
+    /* Auto modifications for some features */
+    /* Loose some health */
+    Tamagotchi.prototype.looseHealth = function (value, isIncrement) {
+        if (isIncrement == true)
+            this.health += value;
+        else
+            this.health = value;
+    };
     return Tamagotchi;
+}());
+/* This class gives the ability to call cyclically a function with a value */
+var Timer = (function () {
+    function Timer(name, delay, interval, fctCyclic, value, isIncrement, parent) {
+        this.name = name;
+        this.interval = interval;
+        this.fctCyclic = fctCyclic;
+        this.value = value;
+        this.isIncrement = isIncrement;
+        this.delay = delay;
+        this.parent = parent;
+        this.createTimer();
+    }
+    Timer.prototype.createTimer = function () {
+        var _this = this;
+        this.promise = this.interval(function () {
+            _this.fctCyclic(_this.value, _this.isIncrement);
+            _this.parent.checkPlaying();
+        }, this.delay, 0);
+    };
+    Timer.prototype.cancelTimer = function () {
+        this.interval.cancel(this.promise);
+    };
+    return Timer;
 }());
 /// <reference path="angular.d.ts" />
 /// <reference path="./models/tamagotchi.ts" />
@@ -163,17 +204,40 @@ var Application;
 (function (Application) {
     var Factories;
     (function (Factories) {
-        var Tama = (function () {
-            function Tama(name, health, happiness, money, cleanness, workLevel) {
+        var TamaFactory = (function () {
+            function TamaFactory(name, health, happiness, money, cleanness, workLevel) {
                 this.tamagotchi = this.createTama(name, health, happiness, money, cleanness, workLevel);
             }
             /* Create a Tamagotchi */
-            Tama.prototype.createTama = function (name, health, happiness, money, cleanness, workLevel) {
+            TamaFactory.prototype.createTama = function (name, health, happiness, money, cleanness, workLevel) {
                 return new Tamagotchi(name, health, happiness, money, cleanness, workLevel);
             };
-            return Tama;
+            return TamaFactory;
         }());
-        Factories.Tama = Tama;
+        Factories.TamaFactory = TamaFactory;
+    })(Factories = Application.Factories || (Application.Factories = {}));
+})(Application || (Application = {}));
+/// <reference path="angular.d.ts" />
+/// <reference path="./models/timer.ts" />
+var Application;
+(function (Application) {
+    var Factories;
+    (function (Factories) {
+        var TimerFactory = (function () {
+            function TimerFactory(name, delay, interval, fctCyclic, value, isIncrement, parent) {
+                this.timer = this.createTimer(name, delay, interval, fctCyclic, value, isIncrement, parent);
+            }
+            /* Create a timer */
+            TimerFactory.prototype.createTimer = function (name, delay, interval, fctCyclic, value, isIncrement, parent) {
+                return new Timer(name, delay, interval, fctCyclic, value, isIncrement, parent);
+            };
+            /* Kill the timer */
+            TimerFactory.prototype.cancelTimer = function () {
+                this.timer.cancelTimer();
+            };
+            return TimerFactory;
+        }());
+        Factories.TimerFactory = TimerFactory;
     })(Factories = Application.Factories || (Application.Factories = {}));
 })(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
@@ -183,17 +247,35 @@ var Application;
     var Controllers;
     (function (Controllers) {
         var HomeController = (function () {
-            function HomeController($scope, $timeout, TamaFact) {
-                this.tamaFact = new TamaFact('Tamachi', 30, 30, 30, 10);
+            function HomeController($scope, $timeout, $interval, TamaFact, TimerFact) {
+                this.tamaFact = new TamaFact('Tamachi', 6, 30, 30, 1, 10);
                 this.scope = $scope;
                 this.timeout = $timeout;
+                this.interval = $interval;
                 this.hideActionsBar = true;
                 this.showNotification = true;
                 this.showHelpWindow = false;
                 this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
                 var now = new Date();
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
+                this.timerFact = TimerFact;
+                this.createTimers();
             }
+            /* Create timers */
+            HomeController.prototype.createTimers = function () {
+                var _this = this;
+                this.timers = [];
+                var timer1 = new this.timerFact('Loose health', 2000, this.interval, function () {
+                    _this.tamaFact.tamagotchi.looseHealth(-2, true);
+                }, -2, true, this);
+                this.timers.push(timer1);
+            };
+            /* Cancel timers */
+            HomeController.prototype.cancelTimers = function () {
+                for (var i = 0; i < this.timers.length; i++) {
+                    this.timers[i].cancelTimer();
+                }
+            };
             /* Feed the Tamagotch */
             HomeController.prototype.feed = function () {
                 var feed = this.tamaFact.tamagotchi.feed();
@@ -226,12 +308,19 @@ var Application;
             };
             /* Restart playing */
             HomeController.prototype.restartGame = function () {
+                this.cancelTimers();
                 this.tamaFact.tamagotchi.reset();
                 this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
+                this.createTimers();
             };
             /* Display help message */
             HomeController.prototype.help = function () {
                 this.showHelpWindow = true;
+            };
+            /* Check for playing */
+            HomeController.prototype.checkPlaying = function () {
+                if (this.tamaFact.tamagotchi.getHealth() <= 0)
+                    this.cancelTimers();
             };
             /* Display a notification message */
             HomeController.prototype.notify = function (notification) {
@@ -249,7 +338,7 @@ var Application;
                     });
                 }, 5000, true);
             };
-            HomeController.notifications = 0;
+            HomeController.notifications = 0; // Number of notifications to display in the notification status
             return HomeController;
         }());
         Controllers.HomeController = HomeController;
@@ -257,9 +346,11 @@ var Application;
 })(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
 /// <reference path="tama-factory.ts" />
+/// <reference path="timer-factory.ts" />
 /// <reference path="home-controller.ts" />
 var appModule = angular.module("tamaApp", ['ngAnimate']);
-appModule.factory("Tama", function () { return Application.Factories.Tama; });
-appModule.controller("HomeController", ["$scope", "$timeout", "Tama", function ($scope, $timeout, Tama) {
-        return new Application.Controllers.HomeController($scope, $timeout, Tama);
+appModule.factory("TamaFactory", function () { return Application.Factories.TamaFactory; });
+appModule.factory("TimerFactory", function () { return Application.Factories.TimerFactory; });
+appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, TamaFactory, TimerFactory) {
+        return new Application.Controllers.HomeController($scope, $timeout, $interval, TamaFactory, TimerFactory);
     }]);
