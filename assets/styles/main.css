@@ -12,7 +12,7 @@ body {
   margin: 0 auto;
   background-image: url("images/iphone.png");
   background-repeat: no-repeat;
-  background-position: center 0; }
+  background-position: 50% 0; }
 
 .col-centered {
   text-align: center; }
@@ -47,6 +47,16 @@ hr {
 
 .tama-loose {
   margin-top: 150px; }
+
+.tama-core {
+  height: 525px; }
+
+.tama-adv {
+  width: 335px;
+  height: 45px;
+  background-image: url("images/advertisement.png");
+  background-position: 0 0;
+  background-repeat: no-repeat; }
 
 .tama-status div {
   display: inline-block;
@@ -99,6 +109,8 @@ hr {
     left: -50%; }
 
 .tama-help {
+  z-index: 1000;
+  background-color: #FFFFFF;
   position: absolute;
   top: 0;
   left: 0; }

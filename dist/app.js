@@ -443,7 +443,6 @@ var Application;
                         // The notification message area is erased if the number of notifications is 0
                         HomeController.notifications--;
                         if (HomeController.notifications == 0) {
-                            _this.showNotification = false;
                         }
                     });
                 }, 5000, true);

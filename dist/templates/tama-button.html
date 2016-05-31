@@ -1,4 +1,4 @@
-<div class="container tama-main-content" ng-show="ctl.tamaFact.tamagotchi.getHealth() > 0 && ctl.showHelpWindow == false">
+<div class="container tama-main-content" ng-show="ctl.tamaFact.tamagotchi.getHealth() > 0">
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
 			<img src="dist/images/tamagotchi.png" alt="Tamagotchi Avatar" />
@@ -24,7 +24,7 @@
 				</div>
 				<div class="col-xs-4 col-md-4 col-lg-4">
 					<ul>
-						<li ng-click="ctl.help(); ctl.hideActionsBar = !ctl.hideActionsBar; showHelpWindow = true;"><i class="fa fa-question" aria-hidden="true"></i>Help</li>
+						<li ng-click="ctl.help(); showHelpWindow = true;"><i class="fa fa-question" aria-hidden="true"></i>Help</li>
 						<li class="danger" ng-click="ctl.restartGame(); ctl.hideActionsBar = !ctl.hideActionsBar;"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
 					</ul>
 				</div>
