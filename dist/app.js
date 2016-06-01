@@ -342,7 +342,8 @@ var Application;
                     templateUrl: './dist/templates/tama-notification.html',
                     scope: {
                         ctl: '='
-                    }
+                    },
+                    transclude: true
                 };
             };
             return TamaNotification;
@@ -394,6 +395,7 @@ var Application;
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
                 this.timerFact = TimerFact;
                 this.createTimers();
+                this.showNotification = false;
                 this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
             }
             /* Create timers */
@@ -462,9 +464,8 @@ var Application;
                 this.showNotification = true;
                 this.timeout(function () {
                     _this.scope.$apply(function () {
-                        // The notification message area is erased if the number of notifications is 0
+                        // The notification message area is hidden if the number of notifications is 0
                         if (--HomeController.notifications == 0) {
-                            console.log('DEDANS');
                             _this.showNotification = false;
                         }
                     });

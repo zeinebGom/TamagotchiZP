@@ -12,7 +12,8 @@ module Application.Directives {
 				templateUrl: './dist/templates/tama-notification.html',
 				scope: {
 					ctl: '='
-				}
+				},
+				transclude: true
 			};
 		}
 	}

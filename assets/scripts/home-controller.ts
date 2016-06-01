@@ -36,6 +36,7 @@ module Application.Controllers {
 			this.timerFact = TimerFact;
 			this.createTimers();
 
+			this.showNotification = false;
 			this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
         }
 
@@ -119,9 +120,8 @@ module Application.Controllers {
 			this.timeout(() => {
 				this.scope.$apply(() => {
 
-					// The notification message area is erased if the number of notifications is 0
+					// The notification message area is hidden if the number of notifications is 0
 					if (--HomeController.notifications == 0) {
-						console.log('DEDANS');
 						this.showNotification = false;
 					}
 				});
