@@ -6,10 +6,12 @@
 /// <reference path="tama-status.ts" />
 /// <reference path="tama-button.ts" />
 /// <reference path="tama-notification.ts" />
+/// <reference path="angular-route.d.ts" />
+/// <reference path="route.ts" />
 /// <reference path="home-controller.ts" />
 
 
-var appModule = angular.module("tamaApp", ['ngAnimate']);
+var appModule = angular.module("tamaApp", ['ngAnimate','ngRoute']);
  
 
 
@@ -29,5 +31,7 @@ appModule.directive("tamaStatus", () => new Application.Directives.TamaStatus())
 appModule.directive("tamaButton", () => new Application.Directives.TamaButton());
 
 appModule.directive("tamaNotification", () => new Application.Directives.TamaNotification());
+
+appModule.config(tamaApp.Routes.configureRoutes);
 
 

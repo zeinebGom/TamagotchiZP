@@ -1,20 +1,19 @@
 /// <reference path="angular.d.ts" />
+/// <reference path="./models/tamagotchi.ts" />
 var Application;
 (function (Application) {
     var Factories;
     (function (Factories) {
-        var Tama = (function () {
-            function Tama() {
-                return this.createTama();
+        var TamaFactory = (function () {
+            function TamaFactory(name, health, happiness, money, cleanness, workLevel) {
+                this.tamagotchi = this.createTama(name, health, happiness, money, cleanness, workLevel);
             }
-            Tama.prototype.createTama = function () {
-                var tama = [{
-                        name: 'tama'
-                    }];
-                return tama;
+            /* Create a Tamagotchi */
+            TamaFactory.prototype.createTama = function (name, health, happiness, money, cleanness, workLevel) {
+                return new Tamagotchi(name, health, happiness, money, cleanness, workLevel);
             };
-            return Tama;
+            return TamaFactory;
         }());
-        Factories.Tama = Tama;
+        Factories.TamaFactory = TamaFactory;
     })(Factories = Application.Factories || (Application.Factories = {}));
 })(Application || (Application = {}));

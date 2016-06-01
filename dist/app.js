@@ -351,6 +351,35 @@ var Application;
     })(Directives = Application.Directives || (Application.Directives = {}));
 })(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
+/// <reference path="angular-route.d.ts" />
+var tamaApp;
+(function (tamaApp) {
+    var Routes = (function () {
+        function Routes() {
+        }
+        Routes.configureRoutes = function ($locationProvider, $routeProvider) {
+            /*$locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });*/
+            $routeProvider.when("/home", {
+                templateUrl: "partials/home.html",
+                controller: 'HomeController'
+            });
+            $routeProvider.when("/help", {
+                templateUrl: "partials/help.html",
+                controller: 'HomeController'
+            });
+            $routeProvider.otherwise({
+                redirectTo: "/home"
+            });
+        };
+        Routes.$inject = ["$routeProvider", "$locationProvider"];
+        return Routes;
+    }());
+    tamaApp.Routes = Routes;
+})(tamaApp || (tamaApp = {}));
+/// <reference path="angular.d.ts" />
 /// <reference path="models/tamagotchi.ts" />
 var Application;
 (function (Application) {
@@ -461,8 +490,10 @@ var Application;
 /// <reference path="tama-status.ts" />
 /// <reference path="tama-button.ts" />
 /// <reference path="tama-notification.ts" />
+/// <reference path="angular-route.d.ts" />
+/// <reference path="route.ts" />
 /// <reference path="home-controller.ts" />
-var appModule = angular.module("tamaApp", ['ngAnimate']);
+var appModule = angular.module("tamaApp", ['ngAnimate', 'ngRoute']);
 appModule.factory("TamaFactory", function () { return Application.Factories.TamaFactory; });
 appModule.factory("TimerFactory", function () { return Application.Factories.TimerFactory; });
 appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, TamaFactory, TimerFactory) {
@@ -473,3 +504,4 @@ appModule.directive("tamaHelp", function () { return new Application.Directives.
 appModule.directive("tamaStatus", function () { return new Application.Directives.TamaStatus(); });
 appModule.directive("tamaButton", function () { return new Application.Directives.TamaButton(); });
 appModule.directive("tamaNotification", function () { return new Application.Directives.TamaNotification(); });
+appModule.config(tamaApp.Routes.configureRoutes);
