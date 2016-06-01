@@ -57,14 +57,20 @@ hr {
 }
 
 .tama-loose {
-	margin-top: 150px;
+	margin-top: 100px;
+	height: 340px;
 }
 
+
 .tama-core {
+	position: relative;
 	height: 525px;
 }
 
 .tama-adv {
+	position: absolute;
+	top: 526px;
+	left: 0;
 	width: 335px;
 	height: 45px;
 	background-image: url('images/advertisement.png');
@@ -109,35 +115,40 @@ hr {
 
 	ul {
 		padding: $tama-actions-padding;
+		list-style-type: none;
 
 		li {
-			display: block;
-			padding: $tama-action-padding;
-			border: $tama-action-border;
-			border-radius: $tama-action-border-radius;
-			margin-bottom: $tama-action-margin-bottom;
-			background-color: $tama-actions-background-color;
-
-			&:hover, &:active {
-				color: $tama-action-active-color;
-				background-color: $tama-action-active-background-color;
-				border-color: $tama-action-active-background-color;
-			}
-
-			&.danger {
-				color: $tama-action-danger-color;
-				background-color: $tama-action-danger-background-color;
-				border-color: $tama-action-danger-background-color;
+			a {
+				display: block;
+				padding: $tama-action-padding;
+				border: $tama-action-border;
+				border-radius: $tama-action-border-radius;
+				margin-bottom: $tama-action-margin-bottom;
+				background-color: $tama-actions-background-color;
+				color: $tama-action-color;
 
 				&:hover, &:active {
+					color: $tama-action-active-color;
+					background-color: $tama-action-active-background-color;
+					border-color: $tama-action-active-background-color;
+					text-decoration: none;
+				}
+
+				&.danger {
 					color: $tama-action-danger-color;
 					background-color: $tama-action-danger-background-color;
 					border-color: $tama-action-danger-background-color;
-				}
-			}
 
-			i.fa {
-				padding-right: $tama-action-icon-padding-right;
+					&:hover, &:active {
+						color: $tama-action-danger-color;
+						background-color: $tama-action-danger-background-color;
+						border-color: $tama-action-danger-background-color;
+					}
+				}
+
+				i.fa {
+					padding-right: $tama-action-icon-padding-right;
+				}
 			}
 		}
 	}
@@ -145,10 +156,13 @@ hr {
 	.tama-action-buttons {
 		position: relative;
 		left: -50%;
-	}
 
+	}
 }
 
+.tama-notification-area {
+	height: 51px;
+}
 
 .tama-help {
 	z-index: 1000;

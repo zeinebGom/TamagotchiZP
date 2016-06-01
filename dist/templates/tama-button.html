@@ -1,4 +1,4 @@
-<div class="container tama-main-content" ng-show="ctl.tamaFact.tamagotchi.getHealth() > 0">
+<div class="container tama-main-content">
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
 			<img src="dist/images/tamagotchi.png" alt="Tamagotchi Avatar" />
@@ -10,22 +10,22 @@
 			<div class="tama-action-buttons row">
 				<div class="col-xs-4 col-md-4 col-lg-4">
 					<ul>
-						<li ng-click="ctl.feed()"><i class="fa fa-cutlery" aria-hidden="true"></i>Eat</li>
-						<li ng-click="ctl.clean()"><i class="fa fa-yelp" aria-hidden="true"></i>Wash</li>
-						<li ng-click="ctl.sleep()"><i class="fa fa-bed" aria-hidden="true"></i>Sleep</li>
+						<li><a ng-href="" ng-click="ctl.feed()"><i class="fa fa-cutlery" aria-hidden="true"></i>Eat</a></li>
+						<li><a ng-href="" ng-click="ctl.clean()"><i class="fa fa-yelp" aria-hidden="true"></i>Wash</a></li>
+						<li><a ng-href="" ng-click="ctl.sleep()"><i class="fa fa-bed" aria-hidden="true"></i>Sleep</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-4 col-md-4 col-lg-4">
 					<ul>
-						<li ng-click="ctl.work()"><i class="fa fa-desktop" aria-hidden="true"></i>Work</li>
-						<li ng-click="ctl.playFootball()"><i class="fa fa-futbol-o" aria-hidden="true"></i>Football</li>
-						<li ng-click="ctl.goCinema()"><i class="fa fa-film" aria-hidden="true"></i>Cinema</li>
+						<li><a ng-href="" ng-click="ctl.work()"><i class="fa fa-desktop" aria-hidden="true"></i>Work</a></li>
+						<li><a ng-href="" ng-click="ctl.playFootball()"><i class="fa fa-futbol-o" aria-hidden="true"></i>Football</a></li>
+						<li><a ng-href="" ng-click="ctl.goCinema()"><i class="fa fa-film" aria-hidden="true"></i>Cinema</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-4 col-md-4 col-lg-4">
 					<ul>
-						<li ng-click="ctl.help(); showHelpWindow = true;"><i class="fa fa-question" aria-hidden="true"></i>Help</li>
-						<li class="danger" ng-click="ctl.restartGame(); ctl.hideActionsBar = !ctl.hideActionsBar;"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</li>
+						<li><a ng-href="#/help"><i class="fa fa-question" aria-hidden="true"></i>Help</a></li>
+						<li><a ng-href="" class="danger" ng-click="ctl.restartGame(); ctl.hideActionsBar = !ctl.hideActionsBar;"><i class="fa fa-fast-backward" aria-hidden="true"></i>Restart</a></li>
 					</ul>
 				</div>
 			</div>
@@ -34,12 +34,12 @@
 
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-			<button class="btn btn-success" ng-click="ctl.hideActionsBar = !ctl.hideActionsBar">Let's do something&nbsp;
+			<a class="btn btn-success" ng-click="ctl.hideActionsBar = !ctl.hideActionsBar">Let's do something&nbsp;
 				<span ng-hide="!ctl.hideActionsBar"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
 				<span ng-show="!ctl.hideActionsBar"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
-			</button>
-			<a href="#/help">help</a>
-			<div ng-view></div>
+			</a>
+			<a class="btn btn-success" ng-href="#/help"><i class="fa fa-question" aria-hidden="true"></i>&nbsp;Help</a>
+			
 		</div>
 	</div>
 

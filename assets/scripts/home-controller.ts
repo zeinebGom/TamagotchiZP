@@ -7,6 +7,7 @@ module Application.Controllers {
 		private scope: any;
 		private timeout: any;							// Service timeout to call once a function
 		private interval: any;							// Service interval to call cyclically a function
+		private location: any;							// Service location to open page
 
 		private tamaFact: any;
 		private notification: string;					// Message to display in the notification status
@@ -20,15 +21,13 @@ module Application.Controllers {
 		private static notifications: number = 0;		// Number of notifications to display in the notification status
 
 
-		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, TamaFact: any, TimerFact: any) {
-			this.tamaFact = new TamaFact('Tamachi', 6000, 30, 30, 1, 10);
+		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $location: ng.ILocationService, TamaFact: any, TimerFact: any) {
+			this.tamaFact = new TamaFact('Tamachi', 600, 30, 30, 10, 10);
 			this.scope = $scope;
 			this.timeout = $timeout;
 			this.interval = $interval;
+			this.location = $location;
 			this.hideActionsBar = true;
-			this.showNotification = true;
-			this.showHelpWindow = false;
-			this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
 
 			let now = new Date();
 			this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
@@ -36,6 +35,8 @@ module Application.Controllers {
 
 			this.timerFact = TimerFact;
 			this.createTimers();
+
+			this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
         }
 
         /* Create timers */
@@ -98,39 +99,33 @@ module Application.Controllers {
 		restartGame(): void {
 			this.cancelTimers();
 			this.tamaFact.tamagotchi.reset();
-			this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
+			this.notify('Back to game, my name is ' + this.tamaFact.tamagotchi.getName());
 			this.createTimers();
-		}
-
-		/* Display help message */
-		help(): void {
-			this.showHelpWindow = true;
 		}
 
 		/* Check for playing */
 		checkPlaying(): void {
-			if (this.tamaFact.tamagotchi.getHealth() <= 0)
+			if (this.tamaFact.tamagotchi.getHealth() <= 0) {
 				this.cancelTimers();
+			}
 		}
 
 		/* Display a notification message */
 		private notify(notification: string): void {
 			HomeController.notifications++;
-			this.showNotification = true;
 			this.notification = notification;
+			this.showNotification = true;
 
 			this.timeout(() => {
 				this.scope.$apply(() => {
 
 					// The notification message area is erased if the number of notifications is 0
-					HomeController.notifications--;
-					if (HomeController.notifications == 0) {
-						//this.showNotification = false;
+					if (--HomeController.notifications == 0) {
+						console.log('DEDANS');
+						this.showNotification = false;
 					}
 				});
 			}, 5000, true);
-
-
 		}
 
 	}

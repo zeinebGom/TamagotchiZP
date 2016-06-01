@@ -1,0 +1,14 @@
+<section class="tama-core">
+	<!-- Anyway, display the status bar -->
+	<div tama-status data-ctl="homeCtl"></div>
+	
+	<div tama-button data-ctl="homeCtl" ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0"></div>
+	<div tama-notification data-ctl="homeCtl" ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0"></div>
+
+	<div tama-loose data-ctl="homeCtl" ng-show="homeCtl.tamaFact.tamagotchi.getHealth() <= 0"></div>
+
+	<div class="tama-adv"></div>
+
+
+</section>
+

@@ -19,8 +19,8 @@ appModule.factory("TamaFactory", () => Application.Factories.TamaFactory);
 
 appModule.factory("TimerFactory", () => Application.Factories.TimerFactory);
 
-appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "TamaFactory", "TimerFactory", ($scope, $timeout, $interval, TamaFactory, TimerFactory) => 
-	new Application.Controllers.HomeController($scope, $timeout, $interval, TamaFactory, TimerFactory)]);
+appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "$location", "TamaFactory", "TimerFactory", ($scope, $timeout, $interval, $location, TamaFactory, TimerFactory) => 
+	new Application.Controllers.HomeController($scope, $timeout, $interval, $location, TamaFactory, TimerFactory)]);
 
 appModule.directive("tamaLoose", () => new Application.Directives.TamaLoose());
 

@@ -11,8 +11,6 @@
 </head>
 <body ng-app="tamaApp">
 
-	<div ng-view></div>
-
 	<div ng-controller="HomeController as homeCtl">
 		<section class="iphone-header">
 			<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
@@ -22,33 +20,21 @@
 			</div>
 		</section>
 
-
 		<section class="tama-header">
 			<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
 				<h1>iGotchi</h1>
 			</div>
 		</section>
 
-		<section tama-loose data-ctl="homeCtl"></section>
-		<section tama-help data-ctl="homeCtl"></section>
 
-		<section class="tama-core">
-			<div tama-status data-ctl="homeCtl"></div>
-			<div tama-button data-ctl="homeCtl"></div>
-			<div tama-notification data-ctl="homeCtl"></div>
-		</section>
-		
-		<section class="tama-adv" ng-show="homeCtl.showHelpWindow == false">
-			
-		</section>
-		
+		<div ng-view></div>
 	</div>
 
 	<footer>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		<script src="node_modules/angular-route/angular-route.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
 		<script type="text/javascript" src="dist/app.js" type="text/javascript"></script>
 		<script type="text/javascript" src="https://use.fontawesome.com/b704cb508c.js"></script>

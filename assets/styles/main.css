@@ -46,12 +46,17 @@ hr {
   margin: 0; }
 
 .tama-loose {
-  margin-top: 150px; }
+  margin-top: 100px;
+  height: 340px; }
 
 .tama-core {
+  position: relative;
   height: 525px; }
 
 .tama-adv {
+  position: absolute;
+  top: 526px;
+  left: 0;
   width: 335px;
   height: 45px;
   background-image: url("images/advertisement.png");
@@ -82,31 +87,37 @@ hr {
   left: 50%;
   z-index: 100; }
   .tama-action-bar ul {
-    padding: 0 5px; }
-    .tama-action-bar ul li {
+    padding: 0 5px;
+    list-style-type: none; }
+    .tama-action-bar ul li a {
       display: block;
       padding: 5px;
       border: 1px solid #DDDDDD;
       border-radius: 5px;
       margin-bottom: 3px;
-      background-color: #FFFFFF; }
-      .tama-action-bar ul li:hover, .tama-action-bar ul li:active {
+      background-color: #FFFFFF;
+      color: #333333; }
+      .tama-action-bar ul li a:hover, .tama-action-bar ul li a:active {
         color: #FFFFFF;
         background-color: #333333;
-        border-color: #333333; }
-      .tama-action-bar ul li.danger {
+        border-color: #333333;
+        text-decoration: none; }
+      .tama-action-bar ul li a.danger {
         color: #FFFFFF;
         background-color: #DF382C;
         border-color: #DF382C; }
-        .tama-action-bar ul li.danger:hover, .tama-action-bar ul li.danger:active {
+        .tama-action-bar ul li a.danger:hover, .tama-action-bar ul li a.danger:active {
           color: #FFFFFF;
           background-color: #DF382C;
           border-color: #DF382C; }
-      .tama-action-bar ul li i.fa {
+      .tama-action-bar ul li a i.fa {
         padding-right: 10px; }
   .tama-action-bar .tama-action-buttons {
     position: relative;
     left: -50%; }
+
+.tama-notification-area {
+  height: 51px; }
 
 .tama-help {
   z-index: 1000;

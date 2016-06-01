@@ -358,19 +358,16 @@ var tamaApp;
         function Routes() {
         }
         Routes.configureRoutes = function ($locationProvider, $routeProvider) {
-            /*$locationProvider.html5Mode({
-                enabled: true,
-                requireBase: false
-            });*/
-            $routeProvider.when("/home", {
+            $routeProvider
+                .when("/home", {
                 templateUrl: "partials/home.html",
                 controller: 'HomeController'
-            });
-            $routeProvider.when("/help", {
+            })
+                .when("/help", {
                 templateUrl: "partials/help.html",
                 controller: 'HomeController'
-            });
-            $routeProvider.otherwise({
+            })
+                .otherwise({
                 redirectTo: "/home"
             });
         };
@@ -386,19 +383,18 @@ var Application;
     var Controllers;
     (function (Controllers) {
         var HomeController = (function () {
-            function HomeController($scope, $timeout, $interval, TamaFact, TimerFact) {
-                this.tamaFact = new TamaFact('Tamachi', 6000, 30, 30, 1, 10);
+            function HomeController($scope, $timeout, $interval, $location, TamaFact, TimerFact) {
+                this.tamaFact = new TamaFact('Tamachi', 600, 30, 30, 10, 10);
                 this.scope = $scope;
                 this.timeout = $timeout;
                 this.interval = $interval;
+                this.location = $location;
                 this.hideActionsBar = true;
-                this.showNotification = true;
-                this.showHelpWindow = false;
-                this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
                 var now = new Date();
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
                 this.timerFact = TimerFact;
                 this.createTimers();
+                this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
             }
             /* Create timers */
             HomeController.prototype.createTimers = function () {
@@ -449,29 +445,27 @@ var Application;
             HomeController.prototype.restartGame = function () {
                 this.cancelTimers();
                 this.tamaFact.tamagotchi.reset();
-                this.notify('Hello!!! My name is ' + this.tamaFact.tamagotchi.getName());
+                this.notify('Back to game, my name is ' + this.tamaFact.tamagotchi.getName());
                 this.createTimers();
-            };
-            /* Display help message */
-            HomeController.prototype.help = function () {
-                this.showHelpWindow = true;
             };
             /* Check for playing */
             HomeController.prototype.checkPlaying = function () {
-                if (this.tamaFact.tamagotchi.getHealth() <= 0)
+                if (this.tamaFact.tamagotchi.getHealth() <= 0) {
                     this.cancelTimers();
+                }
             };
             /* Display a notification message */
             HomeController.prototype.notify = function (notification) {
                 var _this = this;
                 HomeController.notifications++;
-                this.showNotification = true;
                 this.notification = notification;
+                this.showNotification = true;
                 this.timeout(function () {
                     _this.scope.$apply(function () {
                         // The notification message area is erased if the number of notifications is 0
-                        HomeController.notifications--;
-                        if (HomeController.notifications == 0) {
+                        if (--HomeController.notifications == 0) {
+                            console.log('DEDANS');
+                            _this.showNotification = false;
                         }
                     });
                 }, 5000, true);
@@ -496,8 +490,8 @@ var Application;
 var appModule = angular.module("tamaApp", ['ngAnimate', 'ngRoute']);
 appModule.factory("TamaFactory", function () { return Application.Factories.TamaFactory; });
 appModule.factory("TimerFactory", function () { return Application.Factories.TimerFactory; });
-appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, TamaFactory, TimerFactory) {
-        return new Application.Controllers.HomeController($scope, $timeout, $interval, TamaFactory, TimerFactory);
+appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "$location", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, $location, TamaFactory, TimerFactory) {
+        return new Application.Controllers.HomeController($scope, $timeout, $interval, $location, TamaFactory, TimerFactory);
     }]);
 appModule.directive("tamaLoose", function () { return new Application.Directives.TamaLoose(); });
 appModule.directive("tamaHelp", function () { return new Application.Directives.TamaHelp(); });
