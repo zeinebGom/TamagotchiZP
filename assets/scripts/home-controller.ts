@@ -18,11 +18,24 @@ module Application.Controllers {
 		private timerFact: any;
 		private timers: any;							// Timers called cyclically
 
+		private healthClassName: string;				// Health class name
+		private cleannessClassName: string;				// Cleanness class name
+		private happinessClassName: string;				// Happiness class name
+		private happinessIcon: number;					// Happiness icon
+
 		private static notifications: number = 0;		// Number of notifications to display in the notification status
 
 
 		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $location: ng.ILocationService, TamaFact: any, TimerFact: any) {
-			this.tamaFact = new TamaFact('Tamachi', 600, 30, 30, 10, 10);
+			let name: string = 'Tamachi';
+			let health: number = 600;
+			let happiness: number = 30;
+			let money: number = 400;
+			let cleanness: number = 100;
+			let workLevel: number = 10;
+
+
+			this.tamaFact = new TamaFact(name, health, happiness, money, cleanness, workLevel);
 			this.scope = $scope;
 			this.timeout = $timeout;
 			this.interval = $interval;
@@ -38,17 +51,31 @@ module Application.Controllers {
 
 			this.showNotification = false;
 			this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
+
+			this.generalCheck();
         }
 
         /* Create timers */
         createTimers(): void {
 			this.timers = [];
 
+
+			let timer0 = new this.timerFact('General check', 1000, this.interval, () => {
+				this.generalCheck();
+			}, 0, true, this);
+
+
 			let timer1 = new this.timerFact('Loose health', 2000, this.interval, () => {
 				this.tamaFact.tamagotchi.looseHealth(-2, true);
 			}, -2, true, this);
 
+			let timer2 = new this.timerFact('Loose cleanness', 8000, this.interval, () => {
+				this.tamaFact.tamagotchi.looseCleanness(-1, true);
+			}, -1, true, this);
+
 			this.timers.push(timer1);
+			this.timers.push(timer2);
+
 		}
 
 		/* Cancel timers */
@@ -56,6 +83,13 @@ module Application.Controllers {
 			for (let i = 0; i < this.timers.length; i++) {
 				this.timers[i].cancelTimer();
 			}
+		}
+
+		/* General check */
+		generalCheck(): void {
+			this.getHealthClass();
+			this.getCleannessClass();
+			this.getHappinessClass();
 		}
 
 
@@ -127,6 +161,48 @@ module Application.Controllers {
 				});
 			}, 5000, true);
 		}
+
+		private getHealthClass(): void {
+			let className: string = 'green';
+			let health = this.tamaFact.tamagotchi.getHealth();
+			if (health < 10)
+				className = 'red';
+			else if (health > 10 && health < 20)
+				className = 'orange';
+			
+			this.healthClassName = className;
+		}
+
+		private getCleannessClass(): void {
+			let className: string = 'green';
+			let cleanness = this.tamaFact.tamagotchi.getCleanness();
+			if (cleanness < 10)
+				className = 'red';
+			else if (cleanness > 10 && cleanness < 20)
+				className = 'orange';
+
+			this.cleannessClassName = className;
+		}
+
+		private getHappinessClass(): void {
+			let className: string = 'green';
+			let icon: number = 0;
+			let happiness = this.tamaFact.tamagotchi.getHappiness();
+
+			if (happiness < 10) {
+				className = 'red';
+				icon = 1;
+			}
+			else if (happiness > 10 && happiness < 20) {
+				className = 'orange';
+				icon = 1;
+			}
+
+			this.happinessClassName = className;
+			this.happinessIcon = icon;
+		}
+
+
 
 	}
 

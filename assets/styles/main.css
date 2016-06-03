@@ -74,6 +74,12 @@ hr {
     display: block; }
     .tama-status div span:first-child {
       vertical-align: top; }
+    .tama-status div span.red {
+      color: #FF0500; }
+    .tama-status div span.orange {
+      color: #FF7400; }
+    .tama-status div span.green {
+      color: #2B823A; }
 
 .tama-main-content {
   width: 333px;

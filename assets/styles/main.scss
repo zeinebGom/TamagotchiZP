@@ -95,6 +95,18 @@ hr {
 			&:first-child {
 				vertical-align: top;
 			}
+
+			&.red {
+				color: $red;
+			}
+
+			&.orange {
+				color: $orange;
+			}
+
+			&.green {
+				color: $green;
+			}
 		}
 	}
 

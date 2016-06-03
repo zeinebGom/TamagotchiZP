@@ -217,6 +217,15 @@ class Tamagotchi {
 			this.health = value;
 	}
 
+	/* Loose some cleanness */
+	looseCleanness(value: number, isIncrement: boolean): void {
+		if (isIncrement == true)
+			this.cleanness += value;
+		else
+			this.cleanness = value;
+	}
+
+
 
 
 }

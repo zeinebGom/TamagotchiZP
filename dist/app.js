@@ -172,6 +172,13 @@ var Tamagotchi = (function () {
         else
             this.health = value;
     };
+    /* Loose some cleanness */
+    Tamagotchi.prototype.looseCleanness = function (value, isIncrement) {
+        if (isIncrement == true)
+            this.cleanness += value;
+        else
+            this.cleanness = value;
+    };
     return Tamagotchi;
 }());
 /* This class gives the ability to call cyclically a function with a value */
@@ -407,7 +414,13 @@ var Application;
     (function (Controllers) {
         var HomeController = (function () {
             function HomeController($scope, $timeout, $interval, $location, TamaFact, TimerFact) {
-                this.tamaFact = new TamaFact('Tamachi', 600, 30, 30, 10, 10);
+                var name = 'Tamachi';
+                var health = 600;
+                var happiness = 30;
+                var money = 400;
+                var cleanness = 100;
+                var workLevel = 10;
+                this.tamaFact = new TamaFact(name, health, happiness, money, cleanness, workLevel);
                 this.scope = $scope;
                 this.timeout = $timeout;
                 this.interval = $interval;
@@ -419,21 +432,35 @@ var Application;
                 this.createTimers();
                 this.showNotification = false;
                 this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
+                this.generalCheck();
             }
             /* Create timers */
             HomeController.prototype.createTimers = function () {
                 var _this = this;
                 this.timers = [];
+                var timer0 = new this.timerFact('General check', 1000, this.interval, function () {
+                    _this.generalCheck();
+                }, 0, true, this);
                 var timer1 = new this.timerFact('Loose health', 2000, this.interval, function () {
                     _this.tamaFact.tamagotchi.looseHealth(-2, true);
                 }, -2, true, this);
+                var timer2 = new this.timerFact('Loose cleanness', 8000, this.interval, function () {
+                    _this.tamaFact.tamagotchi.looseCleanness(-1, true);
+                }, -1, true, this);
                 this.timers.push(timer1);
+                this.timers.push(timer2);
             };
             /* Cancel timers */
             HomeController.prototype.cancelTimers = function () {
                 for (var i = 0; i < this.timers.length; i++) {
                     this.timers[i].cancelTimer();
                 }
+            };
+            /* General check */
+            HomeController.prototype.generalCheck = function () {
+                this.getHealthClass();
+                this.getCleannessClass();
+                this.getHappinessClass();
             };
             /* Feed the Tamagotch */
             HomeController.prototype.feed = function () {
@@ -492,6 +519,39 @@ var Application;
                         }
                     });
                 }, 5000, true);
+            };
+            HomeController.prototype.getHealthClass = function () {
+                var className = 'green';
+                var health = this.tamaFact.tamagotchi.getHealth();
+                if (health < 10)
+                    className = 'red';
+                else if (health > 10 && health < 20)
+                    className = 'orange';
+                this.healthClassName = className;
+            };
+            HomeController.prototype.getCleannessClass = function () {
+                var className = 'green';
+                var cleanness = this.tamaFact.tamagotchi.getCleanness();
+                if (cleanness < 10)
+                    className = 'red';
+                else if (cleanness > 10 && cleanness < 20)
+                    className = 'orange';
+                this.cleannessClassName = className;
+            };
+            HomeController.prototype.getHappinessClass = function () {
+                var className = 'green';
+                var icon = 0;
+                var happiness = this.tamaFact.tamagotchi.getHappiness();
+                if (happiness < 10) {
+                    className = 'red';
+                    icon = 1;
+                }
+                else if (happiness > 10 && happiness < 20) {
+                    className = 'orange';
+                    icon = 1;
+                }
+                this.happinessClassName = className;
+                this.happinessIcon = icon;
             };
             HomeController.notifications = 0; // Number of notifications to display in the notification status
             return HomeController;
