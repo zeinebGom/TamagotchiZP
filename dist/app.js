@@ -351,6 +351,28 @@ var Application;
         Directives.TamaNotification = TamaNotification;
     })(Directives = Application.Directives || (Application.Directives = {}));
 })(Application || (Application = {}));
+var Application;
+(function (Application) {
+    var Directives;
+    (function (Directives) {
+        var TamaHeader = (function () {
+            function TamaHeader() {
+                return this.createDirective();
+            }
+            TamaHeader.prototype.createDirective = function () {
+                return {
+                    restrict: 'AE',
+                    templateUrl: './dist/templates/tama-header.html',
+                    scope: {
+                        ctl: '='
+                    }
+                };
+            };
+            return TamaHeader;
+        }());
+        Directives.TamaHeader = TamaHeader;
+    })(Directives = Application.Directives || (Application.Directives = {}));
+})(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
 /// <reference path="angular-route.d.ts" />
 var tamaApp;
@@ -485,6 +507,7 @@ var Application;
 /// <reference path="tama-status.ts" />
 /// <reference path="tama-button.ts" />
 /// <reference path="tama-notification.ts" />
+/// <reference path="tama-header.ts" />
 /// <reference path="angular-route.d.ts" />
 /// <reference path="route.ts" />
 /// <reference path="home-controller.ts" />
@@ -494,6 +517,7 @@ appModule.factory("TimerFactory", function () { return Application.Factories.Tim
 appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "$location", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, $location, TamaFactory, TimerFactory) {
         return new Application.Controllers.HomeController($scope, $timeout, $interval, $location, TamaFactory, TimerFactory);
     }]);
+appModule.directive("tamaHeader", function () { return new Application.Directives.TamaHeader(); });
 appModule.directive("tamaLoose", function () { return new Application.Directives.TamaLoose(); });
 appModule.directive("tamaHelp", function () { return new Application.Directives.TamaHelp(); });
 appModule.directive("tamaStatus", function () { return new Application.Directives.TamaStatus(); });

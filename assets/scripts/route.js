@@ -10,10 +10,12 @@ var tamaApp;
                 .when("/home", {
                 templateUrl: "partials/home.html",
                 controller: 'HomeController'
-            }).when("/help", {
+            })
+                .when("/help", {
                 templateUrl: "partials/help.html",
                 controller: 'HomeController'
-            }).otherwise({
+            })
+                .otherwise({
                 redirectTo: "/home"
             });
         };

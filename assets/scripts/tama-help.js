@@ -2,22 +2,21 @@ var Application;
 (function (Application) {
     var Directives;
     (function (Directives) {
-        var TamaNotification = (function () {
-            function TamaNotification() {
+        var TamaHelp = (function () {
+            function TamaHelp() {
                 return this.createDirective();
             }
-            TamaNotification.prototype.createDirective = function () {
+            TamaHelp.prototype.createDirective = function () {
                 return {
                     restrict: 'AE',
-                    templateUrl: './dist/templates/tama-notification.html',
+                    templateUrl: './dist/templates/tama-help.html',
                     scope: {
                         ctl: '='
-                    },
-                    transclude: true
+                    }
                 };
             };
-            return TamaNotification;
+            return TamaHelp;
         }());
-        Directives.TamaNotification = TamaNotification;
+        Directives.TamaHelp = TamaHelp;
     })(Directives = Application.Directives || (Application.Directives = {}));
 })(Application || (Application = {}));
