@@ -5,12 +5,12 @@
 	<!-- Anyway, display the status bar -->
 	<div tama-status data-ctl="homeCtl"></div>
 	
-	<div ng-show="homeCtl.tamaFact.tamagotchi.getHealth() > 0">
+	<div ng-show="homeCtl.tamagotchi.getHealth() > 0">
 		<div tama-button data-ctl="homeCtl"></div>
 		<div tama-notification data-ctl="homeCtl"></div>
 	</div>
 
-	<div tama-loose data-ctl="homeCtl" ng-show="homeCtl.tamaFact.tamagotchi.getHealth() <= 0"></div>
+	<div tama-loose data-ctl="homeCtl" ng-show="homeCtl.tamagotchi.getHealth() <= 0"></div>
 
 	<div class="tama-adv"></div>
 

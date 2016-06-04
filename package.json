@@ -1,0 +1,30 @@
+{
+  "name": "tamagotchizp",
+  "version": "1.0.0",
+  "description": "Tamagotchi ZP application",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "angular": "^1.5.6",
+    "gulp-concat": "^2.6.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-typescript": "^2.13.5",
+    "gulp-livereload": "^3.8.1",
+    "gulp-uglify": "^1.5.3",
+    "npm-config": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeinebGom/TamagotchiZP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeinebGom/TamagotchiZP/issues"
+  },
+  "homepage": "https://github.com/zeinebGom/TamagotchiZP#readme"
+}

@@ -33,7 +33,6 @@ hr {
 
 .iphone-header {
 	height: $iphone-header-height;
-	margin-top: $iphone-header-margin-top;
 	color: $iphone-color;
 	background-color: $iphone-background-color;
 
@@ -51,8 +50,16 @@ hr {
 }
 
 .tama-header {
+	width: 100%;
+	height: 39px;
+
 	h1 {
 		margin: 0;
+	}
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
 	}
 }
 
@@ -64,12 +71,26 @@ hr {
 
 .tama-core {
 	position: relative;
-	height: 525px;
+	height: 389px;
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
+	}
+}
+
+.tama-footer {
+	height: 56px;
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
+	}
 }
 
 .tama-adv {
 	position: absolute;
-	top: 526px;
+	top: 487px;
 	left: 0;
 	width: 335px;
 	height: 45px;
@@ -79,6 +100,8 @@ hr {
 }
 
 .tama-status {
+	border-top: $tama-status-border;
+	border-bottom: $tama-status-border;
 	div {
 		display: inline-block;
 		border-right: $tama-status-border;
@@ -108,6 +131,11 @@ hr {
 				color: $green;
 			}
 		}
+	}
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
 	}
 
 }
@@ -170,10 +198,6 @@ hr {
 		left: -50%;
 
 	}
-}
-
-.tama-notification-area {
-	height: 51px;
 }
 
 .tama-help {

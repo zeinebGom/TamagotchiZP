@@ -1,6 +1,6 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-			<div class="tama-footer animate-show" ng-show="ctl.showNotification">
+			<div ng-class="{'night-mode': ctl.nightMode == true}" class="tama-footer animate-show" ng-show="ctl.showNotification">
 				<span ng-show="ctl.notification.length > 0"><i class="fa fa-comment"></i>&nbsp;</span>
 				<span ng-bind="ctl.notification"></span>
 			</div>

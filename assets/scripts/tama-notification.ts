@@ -8,7 +8,7 @@ module Application.Directives {
 
 		private createDirective(): any {
 			return {
-				restrict: 'AE',
+				restrict: 'A',
 				templateUrl: './dist/templates/tama-notification.html',
 				scope: {
 					ctl: '='

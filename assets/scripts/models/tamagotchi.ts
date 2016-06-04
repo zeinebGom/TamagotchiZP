@@ -131,26 +131,18 @@ class Tamagotchi {
 
 	/* Play football */
 	playFootball(): any {
-		/*if (this.health <= 2) {
-			return {
-				work: false,
-				message: 'So tired to play football...'
-			}
-		}
-		else {*/
-			this.health += 2;
-			this.happiness += 1;
-			this.money--;
-			if (this.cleanness > 3)
-				this.cleanness = 3;
-			else
-				this.cleanness = 0;
+		this.health += 2;
+		this.happiness += 1;
+		this.money--;
+		if (this.cleanness > 3)
+			this.cleanness = 3;
+		else
+			this.cleanness = 0;
 
-			return {
-				work: true,
-				message: 'Playing football with my friends'
-			}
-		/*}*/
+		return {
+			work: true,
+			message: 'Playing football with my friends'
+		}
 	}
 
 	/* Sleep */

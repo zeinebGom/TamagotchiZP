@@ -9,7 +9,6 @@ module Application.Controllers {
 		private interval: any;							// Service interval to call cyclically a function
 		private location: any;							// Service location to open page
 
-		private tamaFact: any;
 		private notification: string;					// Message to display in the notification status
 		private hour: any;								// Hour displayed in the iPhone header
 		private hideActionsBar: boolean;				// Hide the actions bar?
@@ -22,35 +21,30 @@ module Application.Controllers {
 		private cleannessClassName: string;				// Cleanness class name
 		private happinessClassName: string;				// Happiness class name
 		private happinessIcon: number;					// Happiness icon
+		private tamagotchi: Tamagotchi;
+
+		private nightMode: boolean;						// Interface in night mode
 
 		private static notifications: number = 0;		// Number of notifications to display in the notification status
 
 
-		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $location: ng.ILocationService, TamaFact: any, TimerFact: any) {
-			let name: string = 'Tamachi';
-			let health: number = 600;
-			let happiness: number = 30;
-			let money: number = 400;
-			let cleanness: number = 100;
-			let workLevel: number = 10;
-
-
-			this.tamaFact = new TamaFact(name, health, happiness, money, cleanness, workLevel);
+		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $location: ng.ILocationService, TamaService: any, TimerFact: any) {
+			this.tamagotchi = new TamaService().createTama();
 			this.scope = $scope;
 			this.timeout = $timeout;
 			this.interval = $interval;
 			this.location = $location;
 			this.hideActionsBar = true;
+			this.nightMode = true;
 
 			let now = new Date();
 			this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
-
 
 			this.timerFact = TimerFact;
 			this.createTimers();
 
 			this.showNotification = false;
-			this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
+			this.notify('Hello, my name is ' + this.tamagotchi.getName());
 
 			this.generalCheck();
         }
@@ -66,11 +60,11 @@ module Application.Controllers {
 
 
 			let timer1 = new this.timerFact('Loose health', 2000, this.interval, () => {
-				this.tamaFact.tamagotchi.looseHealth(-2, true);
+				this.tamagotchi.looseHealth(-2, true);
 			}, -2, true, this);
 
 			let timer2 = new this.timerFact('Loose cleanness', 8000, this.interval, () => {
-				this.tamaFact.tamagotchi.looseCleanness(-1, true);
+				this.tamagotchi.looseCleanness(-1, true);
 			}, -1, true, this);
 
 			this.timers.push(timer1);
@@ -92,40 +86,39 @@ module Application.Controllers {
 			this.getHappinessClass();
 		}
 
-
-        /* Feed the Tamagotch */
+        /* Feed the Tamagotchi */
 		feed(): any { 
-			let feed = this.tamaFact.tamagotchi.feed();
+			let feed = this.tamagotchi.feed();
 			this.notify(feed.message);
 		}
 
-		/* Clean the Tamagotch */
+		/* Clean the Tamagotchi */
 		clean(): any {
-			let clean = this.tamaFact.tamagotchi.clean();
+			let clean = this.tamagotchi.clean();
 			this.notify(clean.message);
 		}
 
 		/* Go to work */
 		work(): any {
-			let work = this.tamaFact.tamagotchi.work();
+			let work = this.tamagotchi.work();
 			this.notify(work.message);
 		}
 
 		/* Play football */
 		playFootball(): any {
-			let playFootball = this.tamaFact.tamagotchi.playFootball();
+			let playFootball = this.tamagotchi.playFootball();
 			this.notify(playFootball.message);
 		}
 
 		/* Sleep */
 		sleep(): any {
-			let sleep = this.tamaFact.tamagotchi.sleep();
+			let sleep = this.tamagotchi.sleep();
 			this.notify(sleep.message);
 		}
 
 		/* Go to cinema */
 		goCinema(): any {
-			let goCinema = this.tamaFact.tamagotchi.goCinema();
+			let goCinema = this.tamagotchi.goCinema();
 			this.notify(goCinema.message);
 		}
 
@@ -133,14 +126,14 @@ module Application.Controllers {
 		/* Restart playing */
 		restartGame(): void {
 			this.cancelTimers();
-			this.tamaFact.tamagotchi.reset();
-			this.notify('Back to game, my name is ' + this.tamaFact.tamagotchi.getName());
+			this.tamagotchi.reset();
+			this.notify('Back to game, my name is ' + this.tamagotchi.getName());
 			this.createTimers();
 		}
 
 		/* Check for playing */
 		checkPlaying(): void {
-			if (this.tamaFact.tamagotchi.getHealth() <= 0) {
+			if (this.tamagotchi.getHealth() <= 0) {
 				this.cancelTimers();
 			}
 		}
@@ -164,7 +157,7 @@ module Application.Controllers {
 
 		private getHealthClass(): void {
 			let className: string = 'green';
-			let health = this.tamaFact.tamagotchi.getHealth();
+			let health = this.tamagotchi.getHealth();
 			if (health < 10)
 				className = 'red';
 			else if (health > 10 && health < 20)
@@ -175,7 +168,7 @@ module Application.Controllers {
 
 		private getCleannessClass(): void {
 			let className: string = 'green';
-			let cleanness = this.tamaFact.tamagotchi.getCleanness();
+			let cleanness = this.tamagotchi.getCleanness();
 			if (cleanness < 10)
 				className = 'red';
 			else if (cleanness > 10 && cleanness < 20)
@@ -187,7 +180,7 @@ module Application.Controllers {
 		private getHappinessClass(): void {
 			let className: string = 'green';
 			let icon: number = 0;
-			let happiness = this.tamaFact.tamagotchi.getHappiness();
+			let happiness = this.tamagotchi.getHappiness();
 
 			if (happiness < 10) {
 				className = 'red';

@@ -19,7 +19,7 @@ var htmlSource =	[
 					];
 
 var cssSource =	[
-					'./assets/styles/main.css'
+					'./assets/styles/main.scss'
 				];
 var cssTarget = 'main.css';
 
@@ -56,6 +56,7 @@ gulp.task('html', function() {
 /* Concat SASS files */
 gulp.task('sass', function () {
 	return	gulp.src(cssSource)
+			.pipe(sass())
 			.pipe(concat(cssTarget))
     		.pipe(gulp.dest('./dist/'))
     		.pipe(livereload());

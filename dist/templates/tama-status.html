@@ -1,16 +1,15 @@
 <div class="container tama-main-content">
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-			<hr />
-			<div class="tama-status">
+			<div ng-class="{'night-mode': ctl.nightMode == true}" class="tama-status">
 				<div>
 					<span><i class="fa fa-user"></i></span>
-					<span ng-bind="ctl.tamaFact.tamagotchi.getName()"></span>
+					<span ng-bind="ctl.tamagotchi.getName()"></span>
 				</div>
 
 				<div>
 					<span ng-class="ctl.healthClassName"><i class="fa fa-heart"></i></span>
-					<span ng-bind="ctl.tamaFact.tamagotchi.getHealth()"></span>
+					<span ng-bind="ctl.tamagotchi.getHealth()"></span>
 				</div>
 
 				<div>
@@ -18,21 +17,21 @@
 						<i ng-show="ctl.happinessIcon == 0" class="fa fa-smile-o"></i>
 						<i ng-show="ctl.happinessIcon == 1" class="fa fa-frown-o"></i>
 					</span>
-					<span ng-bind="ctl.tamaFact.tamagotchi.getHappiness()"></span>
+					<span ng-bind="ctl.tamagotchi.getHappiness()"></span>
 				</div>
 
 				<div>
 					<span ng-class="ctl.cleannessClassName"><i class="fa fa-yelp"></i></span>
-					<span ng-bind="ctl.tamaFact.tamagotchi.getCleanness()"></span>
+					<span ng-bind="ctl.tamagotchi.getCleanness()"></span>
 				</div>
 
 				<div>
 					<span><i class="fa fa-eur"></i></span>
-					<span ng-bind="ctl.tamaFact.tamagotchi.getMoney()"></span>
+					<span ng-bind="ctl.tamagotchi.getMoney()"></span>
 				</div>
 				<div>
 					<span><i class="fa fa-users"></i></span>
-					<span ng-bind="ctl.tamaFact.tamagotchi.getPromoteLevel()"></span>
+					<span ng-bind="ctl.tamagotchi.getPromoteLevel()"></span>
 				</div>
 			</div>
 		</div>

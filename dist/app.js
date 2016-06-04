@@ -100,13 +100,6 @@ var Tamagotchi = (function () {
     };
     /* Play football */
     Tamagotchi.prototype.playFootball = function () {
-        /*if (this.health <= 2) {
-            return {
-                work: false,
-                message: 'So tired to play football...'
-            }
-        }
-        else {*/
         this.health += 2;
         this.happiness += 1;
         this.money--;
@@ -118,7 +111,6 @@ var Tamagotchi = (function () {
             work: true,
             message: 'Playing football with my friends'
         };
-        /*}*/
     };
     /* Sleep */
     Tamagotchi.prototype.sleep = function () {
@@ -209,20 +201,25 @@ var Timer = (function () {
 /// <reference path="./models/tamagotchi.ts" />
 var Application;
 (function (Application) {
-    var Factories;
-    (function (Factories) {
-        var TamaFactory = (function () {
-            function TamaFactory(name, health, happiness, money, cleanness, workLevel) {
-                this.tamagotchi = this.createTama(name, health, happiness, money, cleanness, workLevel);
+    var Services;
+    (function (Services) {
+        var TamaService = (function () {
+            function TamaService() {
             }
             /* Create a Tamagotchi */
-            TamaFactory.prototype.createTama = function (name, health, happiness, money, cleanness, workLevel) {
+            TamaService.prototype.createTama = function () {
+                var name = 'Tamachi';
+                var health = 600;
+                var happiness = 30;
+                var money = 400;
+                var cleanness = 100;
+                var workLevel = 10;
                 return new Tamagotchi(name, health, happiness, money, cleanness, workLevel);
             };
-            return TamaFactory;
+            return TamaService;
         }());
-        Factories.TamaFactory = TamaFactory;
-    })(Factories = Application.Factories || (Application.Factories = {}));
+        Services.TamaService = TamaService;
+    })(Services = Application.Services || (Application.Services = {}));
 })(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
 /// <reference path="./models/timer.ts" />
@@ -345,7 +342,7 @@ var Application;
             }
             TamaNotification.prototype.createDirective = function () {
                 return {
-                    restrict: 'AE',
+                    restrict: 'A',
                     templateUrl: './dist/templates/tama-notification.html',
                     scope: {
                         ctl: '='
@@ -413,25 +410,20 @@ var Application;
     var Controllers;
     (function (Controllers) {
         var HomeController = (function () {
-            function HomeController($scope, $timeout, $interval, $location, TamaFact, TimerFact) {
-                var name = 'Tamachi';
-                var health = 600;
-                var happiness = 30;
-                var money = 400;
-                var cleanness = 100;
-                var workLevel = 10;
-                this.tamaFact = new TamaFact(name, health, happiness, money, cleanness, workLevel);
+            function HomeController($scope, $timeout, $interval, $location, TamaService, TimerFact) {
+                this.tamagotchi = new TamaService().createTama();
                 this.scope = $scope;
                 this.timeout = $timeout;
                 this.interval = $interval;
                 this.location = $location;
                 this.hideActionsBar = true;
+                this.nightMode = true;
                 var now = new Date();
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
                 this.timerFact = TimerFact;
                 this.createTimers();
                 this.showNotification = false;
-                this.notify('Hello, my name is ' + this.tamaFact.tamagotchi.getName());
+                this.notify('Hello, my name is ' + this.tamagotchi.getName());
                 this.generalCheck();
             }
             /* Create timers */
@@ -442,10 +434,10 @@ var Application;
                     _this.generalCheck();
                 }, 0, true, this);
                 var timer1 = new this.timerFact('Loose health', 2000, this.interval, function () {
-                    _this.tamaFact.tamagotchi.looseHealth(-2, true);
+                    _this.tamagotchi.looseHealth(-2, true);
                 }, -2, true, this);
                 var timer2 = new this.timerFact('Loose cleanness', 8000, this.interval, function () {
-                    _this.tamaFact.tamagotchi.looseCleanness(-1, true);
+                    _this.tamagotchi.looseCleanness(-1, true);
                 }, -1, true, this);
                 this.timers.push(timer1);
                 this.timers.push(timer2);
@@ -462,46 +454,46 @@ var Application;
                 this.getCleannessClass();
                 this.getHappinessClass();
             };
-            /* Feed the Tamagotch */
+            /* Feed the Tamagotchi */
             HomeController.prototype.feed = function () {
-                var feed = this.tamaFact.tamagotchi.feed();
+                var feed = this.tamagotchi.feed();
                 this.notify(feed.message);
             };
-            /* Clean the Tamagotch */
+            /* Clean the Tamagotchi */
             HomeController.prototype.clean = function () {
-                var clean = this.tamaFact.tamagotchi.clean();
+                var clean = this.tamagotchi.clean();
                 this.notify(clean.message);
             };
             /* Go to work */
             HomeController.prototype.work = function () {
-                var work = this.tamaFact.tamagotchi.work();
+                var work = this.tamagotchi.work();
                 this.notify(work.message);
             };
             /* Play football */
             HomeController.prototype.playFootball = function () {
-                var playFootball = this.tamaFact.tamagotchi.playFootball();
+                var playFootball = this.tamagotchi.playFootball();
                 this.notify(playFootball.message);
             };
             /* Sleep */
             HomeController.prototype.sleep = function () {
-                var sleep = this.tamaFact.tamagotchi.sleep();
+                var sleep = this.tamagotchi.sleep();
                 this.notify(sleep.message);
             };
             /* Go to cinema */
             HomeController.prototype.goCinema = function () {
-                var goCinema = this.tamaFact.tamagotchi.goCinema();
+                var goCinema = this.tamagotchi.goCinema();
                 this.notify(goCinema.message);
             };
             /* Restart playing */
             HomeController.prototype.restartGame = function () {
                 this.cancelTimers();
-                this.tamaFact.tamagotchi.reset();
-                this.notify('Back to game, my name is ' + this.tamaFact.tamagotchi.getName());
+                this.tamagotchi.reset();
+                this.notify('Back to game, my name is ' + this.tamagotchi.getName());
                 this.createTimers();
             };
             /* Check for playing */
             HomeController.prototype.checkPlaying = function () {
-                if (this.tamaFact.tamagotchi.getHealth() <= 0) {
+                if (this.tamagotchi.getHealth() <= 0) {
                     this.cancelTimers();
                 }
             };
@@ -522,7 +514,7 @@ var Application;
             };
             HomeController.prototype.getHealthClass = function () {
                 var className = 'green';
-                var health = this.tamaFact.tamagotchi.getHealth();
+                var health = this.tamagotchi.getHealth();
                 if (health < 10)
                     className = 'red';
                 else if (health > 10 && health < 20)
@@ -531,7 +523,7 @@ var Application;
             };
             HomeController.prototype.getCleannessClass = function () {
                 var className = 'green';
-                var cleanness = this.tamaFact.tamagotchi.getCleanness();
+                var cleanness = this.tamagotchi.getCleanness();
                 if (cleanness < 10)
                     className = 'red';
                 else if (cleanness > 10 && cleanness < 20)
@@ -541,7 +533,7 @@ var Application;
             HomeController.prototype.getHappinessClass = function () {
                 var className = 'green';
                 var icon = 0;
-                var happiness = this.tamaFact.tamagotchi.getHappiness();
+                var happiness = this.tamagotchi.getHappiness();
                 if (happiness < 10) {
                     className = 'red';
                     icon = 1;
@@ -560,7 +552,7 @@ var Application;
     })(Controllers = Application.Controllers || (Application.Controllers = {}));
 })(Application || (Application = {}));
 /// <reference path="angular.d.ts" />
-/// <reference path="tama-factory.ts" />
+/// <reference path="tama-service.ts" />
 /// <reference path="timer-factory.ts" />
 /// <reference path="tama-loose.ts" />
 /// <reference path="tama-help.ts" />
@@ -572,10 +564,10 @@ var Application;
 /// <reference path="route.ts" />
 /// <reference path="home-controller.ts" />
 var appModule = angular.module("tamaApp", ['ngAnimate', 'ngRoute']);
-appModule.factory("TamaFactory", function () { return Application.Factories.TamaFactory; });
+appModule.service("TamaService", function () { return Application.Services.TamaService; });
 appModule.factory("TimerFactory", function () { return Application.Factories.TimerFactory; });
-appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "$location", "TamaFactory", "TimerFactory", function ($scope, $timeout, $interval, $location, TamaFactory, TimerFactory) {
-        return new Application.Controllers.HomeController($scope, $timeout, $interval, $location, TamaFactory, TimerFactory);
+appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "$location", "TamaService", "TimerFactory", function ($scope, $timeout, $interval, $location, TamaService, TimerFactory) {
+        return new Application.Controllers.HomeController($scope, $timeout, $interval, $location, TamaService, TimerFactory);
     }]);
 appModule.directive("tamaHeader", function () { return new Application.Directives.TamaHeader(); });
 appModule.directive("tamaLoose", function () { return new Application.Directives.TamaLoose(); });
