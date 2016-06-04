@@ -1,13 +1,17 @@
-<div class="iphone-header">
-	<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-		<span class="iphone-signal"><i class="fa fa-signal" aria-hidden="true"></i>&nbsp;4G</span>
-		<span ng-bind="ctl.hour"></span>
-		<span class="iphone-battery"><i class="fa fa-battery-3" aria-hidden="true"></i></span>
+<div class="container tama-main-content">
+	<div class="row">
+		<div class="iphone-header">
+			<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+				<span class="iphone-signal"><i class="fa fa-signal" aria-hidden="true"></i>&nbsp;4G</span>
+				<span ng-bind="ctl.hour"></span>
+				<span class="iphone-battery"><i class="fa fa-battery-3" aria-hidden="true"></i></span>
+			</div>
+		</div>
 	</div>
-</div>
 
-<div ng-class="{'night-mode': ctl.nightMode == true}" class="tama-header row">
-	<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-		<h1>iGotchi</h1>
+	<div ng-class="{'night-mode': ctl.nightMode == true}" class="row tama-header">
+		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
+			<h1>iGotchi</h1>
+		</div>
 	</div>
 </div>

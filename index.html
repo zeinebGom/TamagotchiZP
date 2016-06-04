@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="tamaApp">
 	<head>
 		<meta charset="UTF-8">
 		<title>iGotchi</title>
@@ -9,11 +9,9 @@
 
 
 	</head>
-	<body ng-app="tamaApp">
+	<body ng-controller="HomeController as homeCtl">
 
-		<div ng-controller="HomeController as homeCtl">
-			<div ng-view></div>
-		</div>
+		<div ng-view></div>
 
 		<footer>
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>

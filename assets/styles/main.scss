@@ -51,7 +51,6 @@ hr {
 
 .tama-header {
 	width: 100%;
-	height: 39px;
 
 	h1 {
 		margin: 0;
@@ -82,6 +81,8 @@ hr {
 .tama-footer {
 	height: 56px;
 
+	border-top: $tama-footer-border;
+
 	&.night-mode {
 		background-color: $night-mode-background-color;
 		color: $night-mode-color;
@@ -89,19 +90,18 @@ hr {
 }
 
 .tama-adv {
-	position: absolute;
-	top: 487px;
-	left: 0;
 	width: 335px;
 	height: 45px;
 	background-image: url('images/advertisement.png');
-	background-position: 0 0;
+	background-position: center 0;
 	background-repeat: no-repeat;
 }
 
 .tama-status {
 	border-top: $tama-status-border;
 	border-bottom: $tama-status-border;
+	text-align: center;
+
 	div {
 		display: inline-block;
 		border-right: $tama-status-border;
@@ -201,6 +201,7 @@ hr {
 }
 
 .tama-help {
+	height: 531px;
 	z-index: 1000;
 	background-color: $tama-help-background-color;
 	position: absolute;
@@ -213,6 +214,11 @@ hr {
 
 	i.fa {
 		padding-right: $tama-action-icon-padding-right;
+	}
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
 	}
 }
 

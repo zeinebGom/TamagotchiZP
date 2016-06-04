@@ -1,38 +1,36 @@
-<div class="container tama-main-content">
+<div ng-class="{'night-mode': ctl.nightMode == true}" class="container tama-main-content tama-status">
 	<div class="row">
-		<div class="col-xs-12 col-md-12 col-lg-12 col-centered">
-			<div ng-class="{'night-mode': ctl.nightMode == true}" class="tama-status">
-				<div>
-					<span><i class="fa fa-user"></i></span>
-					<span ng-bind="ctl.tamagotchi.getName()"></span>
-				</div>
+		<div class="col-xs-12 col-md-12 col-lg-12">
+			<div>
+				<span><i class="fa fa-user"></i></span>
+				<span ng-bind="ctl.tamagotchi.getName()"></span>
+			</div>
 
-				<div>
-					<span ng-class="ctl.healthClassName"><i class="fa fa-heart"></i></span>
-					<span ng-bind="ctl.tamagotchi.getHealth()"></span>
-				</div>
+			<div>
+				<span ng-class="ctl.healthClassName"><i class="fa fa-heart"></i></span>
+				<span ng-bind="ctl.tamagotchi.getHealth()"></span>
+			</div>
 
-				<div>
-					<span ng-class="ctl.happinessClassName">
-						<i ng-show="ctl.happinessIcon == 0" class="fa fa-smile-o"></i>
-						<i ng-show="ctl.happinessIcon == 1" class="fa fa-frown-o"></i>
-					</span>
-					<span ng-bind="ctl.tamagotchi.getHappiness()"></span>
-				</div>
+			<div>
+				<span ng-class="ctl.happinessClassName">
+					<i ng-show="ctl.happinessIcon == 0" class="fa fa-smile-o"></i>
+					<i ng-show="ctl.happinessIcon == 1" class="fa fa-frown-o"></i>
+				</span>
+				<span ng-bind="ctl.tamagotchi.getHappiness()"></span>
+			</div>
 
-				<div>
-					<span ng-class="ctl.cleannessClassName"><i class="fa fa-yelp"></i></span>
-					<span ng-bind="ctl.tamagotchi.getCleanness()"></span>
-				</div>
+			<div>
+				<span ng-class="ctl.cleannessClassName"><i class="fa fa-yelp"></i></span>
+				<span ng-bind="ctl.tamagotchi.getCleanness()"></span>
+			</div>
 
-				<div>
-					<span><i class="fa fa-eur"></i></span>
-					<span ng-bind="ctl.tamagotchi.getMoney()"></span>
-				</div>
-				<div>
-					<span><i class="fa fa-users"></i></span>
-					<span ng-bind="ctl.tamagotchi.getPromoteLevel()"></span>
-				</div>
+			<div>
+				<span><i class="fa fa-eur"></i></span>
+				<span ng-bind="ctl.tamagotchi.getMoney()"></span>
+			</div>
+			<div>
+				<span><i class="fa fa-users"></i></span>
+				<span ng-bind="ctl.tamagotchi.getPromoteLevel()"></span>
 			</div>
 		</div>
 	</div>

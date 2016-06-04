@@ -60,7 +60,7 @@ var Tamagotchi = (function () {
     // Clean the Tamagotchi 
     Tamagotchi.prototype.clean = function () {
         if (this.money > 0) {
-            this.cleanness++;
+            this.cleanness = this.initialCleanness;
             this.money--;
             return {
                 clean: true,
@@ -417,7 +417,7 @@ var Application;
                 this.interval = $interval;
                 this.location = $location;
                 this.hideActionsBar = true;
-                this.nightMode = true;
+                this.nightMode = false;
                 var now = new Date();
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
                 this.timerFact = TimerFact;

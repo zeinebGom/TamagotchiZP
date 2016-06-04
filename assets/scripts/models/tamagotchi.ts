@@ -87,7 +87,7 @@ class Tamagotchi {
 	// Clean the Tamagotchi 
 	clean(): any {
 		if (this.money > 0) {
-			this.cleanness++;
+			this.cleanness = this.initialCleanness;
 			this.money--;
 			return {
 				clean: true,

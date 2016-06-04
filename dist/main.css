@@ -43,8 +43,7 @@ hr {
     left: 313px; }
 
 .tama-header {
-  width: 100%;
-  height: 39px; }
+  width: 100%; }
   .tama-header h1 {
     margin: 0; }
   .tama-header.night-mode {
@@ -63,28 +62,27 @@ hr {
     color: #DDDDDD; }
 
 .tama-footer {
-  height: 56px; }
+  height: 56px;
+  border-top: 1px solid #DDDDDD; }
   .tama-footer.night-mode {
     background-color: #333333;
     color: #DDDDDD; }
 
 .tama-adv {
-  position: absolute;
-  top: 487px;
-  left: 0;
   width: 335px;
   height: 45px;
   background-image: url("images/advertisement.png");
-  background-position: 0 0;
+  background-position: center 0;
   background-repeat: no-repeat; }
 
 .tama-status {
   border-top: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD; }
+  border-bottom: 1px solid #DDDDDD;
+  text-align: center; }
   .tama-status div {
     display: inline-block;
     border-right: 1px solid #DDDDDD;
-    padding: 0 10px;
+    padding: 0 8px;
     height: 40px; }
     .tama-status div:last-child {
       border-right: none; }
@@ -144,6 +142,7 @@ hr {
     left: -50%; }
 
 .tama-help {
+  height: 531px;
   z-index: 1000;
   background-color: #FFFFFF;
   position: absolute;
@@ -153,5 +152,8 @@ hr {
     padding: 0 5px; }
   .tama-help i.fa {
     padding-right: 10px; }
+  .tama-help.night-mode {
+    background-color: #333333;
+    color: #DDDDDD; }
 
 /* Medium and large */

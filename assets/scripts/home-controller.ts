@@ -35,7 +35,7 @@ module Application.Controllers {
 			this.interval = $interval;
 			this.location = $location;
 			this.hideActionsBar = true;
-			this.nightMode = true;
+			this.nightMode = false;
 
 			let now = new Date();
 			this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
