@@ -374,6 +374,7 @@ var Application;
                 this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
                 this.generalCheck();
                 this.createTimers();
+                HomeController.notifications = 0;
                 this.notify('Hello, my name is ' + this.tamagotchi.getName());
             }
             /* Create timers */
@@ -454,7 +455,7 @@ var Application;
                 this.timeout(function () {
                     _this.scope.$apply(function () {
                         // The notification message area is hidden if the number of notifications is 0
-                        if (--HomeController.notifications == 0) {
+                        if (--HomeController.notifications <= 0) {
                             _this.showNotification = false;
                         }
                     });
@@ -493,7 +494,6 @@ var Application;
                 this.happinessClassName = className;
                 this.happinessIcon = icon;
             };
-            HomeController.notifications = 0; // Number of notifications to display in the notification status
             return HomeController;
         }());
         Controllers.HomeController = HomeController;

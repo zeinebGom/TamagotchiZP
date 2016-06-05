@@ -23,7 +23,7 @@ module Application.Controllers {
 
 		private nightMode: boolean;						// Interface in night mode
 
-		private static notifications: number = 0;		// Number of notifications to display in the notification status
+		private static notifications: number;		// Number of notifications to display in the notification status
 
 
 		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, TamaService: any) {
@@ -40,14 +40,13 @@ module Application.Controllers {
 			this.generalCheck();
 			this.createTimers();
 
+			HomeController.notifications = 0;
 			this.notify('Hello, my name is ' + this.tamagotchi.getName());
-
 		}
 
 		/* Create timers */
 		createTimers(): void {
 			this.timers = [];
-
 
 			let timer0 = this.interval(() => { this.generalCheck(); }, 1000);
 			let timer1 = this.interval(() => { this.looseHealth(); }, 2000);
@@ -56,7 +55,6 @@ module Application.Controllers {
 			this.timers.push(timer0);
 			this.timers.push(timer1);
 			this.timers.push(timer2);
-
 		}
 
 		/* Cancel timers */
@@ -141,7 +139,7 @@ module Application.Controllers {
 				this.scope.$apply(() => {
 
 					// The notification message area is hidden if the number of notifications is 0
-					if (--HomeController.notifications == 0) {
+					if (--HomeController.notifications <= 0) {
 						this.showNotification = false;
 					}
 				});
