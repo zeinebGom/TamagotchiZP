@@ -4,8 +4,6 @@
 module Application.Services {
 
 	export class TamaService {
-		private tamagotchi: any;
-
 		constructor() {
 		}
 

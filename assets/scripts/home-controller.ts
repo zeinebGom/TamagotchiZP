@@ -7,14 +7,12 @@ module Application.Controllers {
 		private scope: any;
 		private timeout: any;							// Service timeout to call once a function
 		private interval: any;							// Service interval to call cyclically a function
-		private location: any;							// Service location to open page
 
 		private notification: string;					// Message to display in the notification status
 		private hour: any;								// Hour displayed in the iPhone header
 		private hideActionsBar: boolean;				// Hide the actions bar?
 		private showNotification: boolean;
 		private showHelpWindow: boolean;				// Display the help window?
-		private timerFact: any;
 		private timers: any;							// Timers called cyclically
 
 		private healthClassName: string;				// Health class name
@@ -28,45 +26,34 @@ module Application.Controllers {
 		private static notifications: number = 0;		// Number of notifications to display in the notification status
 
 
-		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $location: ng.ILocationService, TamaService: any, TimerFact: any) {
+		constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, TamaService: any) {
 			this.tamagotchi = new TamaService().createTama();
 			this.scope = $scope;
 			this.timeout = $timeout;
 			this.interval = $interval;
-			this.location = $location;
 			this.hideActionsBar = true;
 			this.nightMode = false;
 
 			let now = new Date();
 			this.hour = (now.getHours() > 12 ? now.getHours() - 12 : now.getHours()) + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + (now.getHours() > 12 ? 'PM' : 'AM');
 
-			this.timerFact = TimerFact;
+			this.generalCheck();
 			this.createTimers();
 
-			this.showNotification = false;
 			this.notify('Hello, my name is ' + this.tamagotchi.getName());
 
-			this.generalCheck();
-        }
+		}
 
-        /* Create timers */
-        createTimers(): void {
+		/* Create timers */
+		createTimers(): void {
 			this.timers = [];
 
 
-			let timer0 = new this.timerFact('General check', 1000, this.interval, () => {
-				this.generalCheck();
-			}, 0, true, this);
+			let timer0 = this.interval(() => { this.generalCheck(); }, 1000);
+			let timer1 = this.interval(() => { this.looseHealth(); }, 2000);
+			let timer2 = this.interval(() => { this.looseCleanness(); }, 8000);
 
-
-			let timer1 = new this.timerFact('Loose health', 2000, this.interval, () => {
-				this.tamagotchi.looseHealth(-2, true);
-			}, -2, true, this);
-
-			let timer2 = new this.timerFact('Loose cleanness', 8000, this.interval, () => {
-				this.tamagotchi.looseCleanness(-1, true);
-			}, -1, true, this);
-
+			this.timers.push(timer0);
 			this.timers.push(timer1);
 			this.timers.push(timer2);
 
@@ -74,9 +61,8 @@ module Application.Controllers {
 
 		/* Cancel timers */
 		cancelTimers(): void {
-			for (let i = 0; i < this.timers.length; i++) {
-				this.timers[i].cancelTimer();
-			}
+			for (let i = 0; i < this.timers.length; i++)
+				this.interval.cancel(this.timers[i]);
 		}
 
 		/* General check */
@@ -84,9 +70,14 @@ module Application.Controllers {
 			this.getHealthClass();
 			this.getCleannessClass();
 			this.getHappinessClass();
+
+			if(this.tamagotchi.getHealth() <= 0) {
+				this.cancelTimers();
+			}
+
 		}
 
-        /* Feed the Tamagotchi */
+		/* Feed the Tamagotchi */
 		feed(): any { 
 			let feed = this.tamagotchi.feed();
 			this.notify(feed.message);
@@ -131,11 +122,13 @@ module Application.Controllers {
 			this.createTimers();
 		}
 
-		/* Check for playing */
-		checkPlaying(): void {
-			if (this.tamagotchi.getHealth() <= 0) {
-				this.cancelTimers();
-			}
+		/* Interaction with the Tamagotchi */
+		private looseHealth() {
+			this.tamagotchi.looseHealth(-2, true);
+		}
+
+		private looseCleanness() {
+			this.tamagotchi.looseCleanness(-1, true);
 		}
 
 		/* Display a notification message */

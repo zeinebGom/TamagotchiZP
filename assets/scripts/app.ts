@@ -1,6 +1,5 @@
 /// <reference path="angular.d.ts" />
 /// <reference path="tama-service.ts" />
-/// <reference path="timer-factory.ts" />
 /// <reference path="tama-loose.ts" />
 /// <reference path="tama-help.ts" />
 /// <reference path="tama-status.ts" />
@@ -18,10 +17,8 @@ var appModule = angular.module("tamaApp", ['ngAnimate','ngRoute']);
 
 appModule.service("TamaService", () => Application.Services.TamaService);
 
-appModule.factory("TimerFactory", () => Application.Factories.TimerFactory);
-
-appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "$location", "TamaService", "TimerFactory", ($scope, $timeout, $interval, $location, TamaService, TimerFactory) => 
-	new Application.Controllers.HomeController($scope, $timeout, $interval, $location, TamaService, TimerFactory)]);
+appModule.controller("HomeController", ["$scope", "$timeout", "$interval", "TamaService", ($scope, $timeout, $interval, TamaService) => 
+	new Application.Controllers.HomeController($scope, $timeout, $interval, TamaService)]);
 
 appModule.directive("tamaHeader", () => new Application.Directives.TamaHeader());
 
