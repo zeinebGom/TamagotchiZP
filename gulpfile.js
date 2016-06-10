@@ -19,7 +19,8 @@ var htmlSource =	[
 					];
 
 var cssSource =	[
-					'./assets/styles/main.scss'
+					 './assets/styles/main.scss'
+					,'./assets/styles/partials/*.scss'
 				];
 var cssTarget = 'main.css';
 
@@ -62,21 +63,12 @@ gulp.task('sass', function () {
     		.pipe(livereload());
 });
 
-/* Copy images */
-gulp.task('img', function () {
-	return	gulp.src(imgSource)
-    		.pipe(gulp.dest('./dist/images/'))
-    		.pipe(livereload());
-});
-
-
 gulp.task('watch', function() {
 	livereload.listen();
 
 	gulp.watch(jsSource, ['js']);
 	gulp.watch(htmlSource, ['html']);
 	gulp.watch(cssSource, ['sass']);
-	gulp.watch(imgSource, ['img']);
 	gulp.watch('index.html', function() {
 		livereload.reload('./index.html');
 	});

@@ -42,6 +42,11 @@ hr {
     top: 0;
     left: 313px; }
 
+.tama-main-content {
+  width: 333px;
+  position: relative;
+  padding: 0; }
+
 .tama-header {
   width: 100%; }
   .tama-header h1 {
@@ -50,42 +55,17 @@ hr {
     background-color: #333333;
     color: #DDDDDD; }
 
-.tama-loose {
-  margin-top: 100px;
-  height: 340px; }
-
-.tama-core {
-  position: relative;
-  height: 389px; }
-  .tama-core.night-mode {
-    background-color: #333333;
-    color: #DDDDDD; }
-
-.tama-footer {
-  height: 56px;
-  border-top: 1px solid #DDDDDD; }
-  .tama-footer.night-mode {
-    background-color: #333333;
-    color: #DDDDDD; }
-
-.tama-adv {
-  width: 335px;
-  height: 45px;
-  background-image: url("images/advertisement.png");
-  background-position: center 0;
-  background-repeat: no-repeat; }
-
 .tama-status {
+  font-size: 18px;
   border-top: 1px solid #DDDDDD;
   border-bottom: 1px solid #DDDDDD;
   text-align: center; }
   .tama-status div {
     display: inline-block;
-    border-right: 1px solid #DDDDDD;
-    padding: 0 8px;
-    height: 40px; }
-    .tama-status div:last-child {
-      border-right: none; }
+    min-width: 96px;
+    padding: 0 8px; }
+    .tama-status div.row:first-child {
+      border-bottom: 2px solid #DDDDDD; }
     .tama-status div span {
       display: block; }
       .tama-status div span:first-child {
@@ -100,15 +80,21 @@ hr {
     background-color: #333333;
     color: #DDDDDD; }
 
-.tama-main-content {
-  width: 333px;
+.tama-core {
   position: relative;
-  padding: 0; }
+  height: 332px; }
+  .tama-core.night-mode {
+    background-color: #333333;
+    color: #DDDDDD; }
+
+.tama-character {
+  margin-top: 40px;
+  height: 250px; }
 
 .tama-action-bar {
   position: absolute;
   width: 100%;
-  top: 235px;
+  top: 183px;
   left: 50%;
   z-index: 100; }
   .tama-action-bar ul {
@@ -140,6 +126,24 @@ hr {
   .tama-action-bar .tama-action-buttons {
     position: relative;
     left: -50%; }
+
+.tama-footer {
+  height: 38px;
+  border-top: 1px solid #DDDDDD; }
+  .tama-footer.night-mode {
+    background-color: #333333;
+    color: #DDDDDD; }
+
+.tama-adv {
+  width: 335px;
+  height: 45px;
+  background-image: url("images/advertisement.png");
+  background-position: center 0;
+  background-repeat: no-repeat; }
+
+.tama-loose {
+  margin-top: 100px;
+  height: 340px; }
 
 .tama-help {
   height: 531px;

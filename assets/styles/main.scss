@@ -49,6 +49,12 @@ hr {
 	}
 }
 
+.tama-main-content {
+	width: 333px;
+	position: relative;
+	padding: 0;
+}
+
 .tama-header {
 	width: 100%;
 
@@ -62,54 +68,19 @@ hr {
 	}
 }
 
-.tama-loose {
-	margin-top: 100px;
-	height: 340px;
-}
-
-
-.tama-core {
-	position: relative;
-	height: 389px;
-
-	&.night-mode {
-		background-color: $night-mode-background-color;
-		color: $night-mode-color;
-	}
-}
-
-.tama-footer {
-	height: 56px;
-
-	border-top: $tama-footer-border;
-
-	&.night-mode {
-		background-color: $night-mode-background-color;
-		color: $night-mode-color;
-	}
-}
-
-.tama-adv {
-	width: 335px;
-	height: 45px;
-	background-image: url('images/advertisement.png');
-	background-position: center 0;
-	background-repeat: no-repeat;
-}
-
 .tama-status {
+	font-size: 18px;
 	border-top: $tama-status-border;
 	border-bottom: $tama-status-border;
 	text-align: center;
 
 	div {
 		display: inline-block;
-		border-right: $tama-status-border;
+		min-width: 96px;
 		padding: $tama-status-categorie-padding;
-		height: $tama-status-height;
 
-		&:last-child {
-			border-right: none;
+		&.row:first-child {
+			border-bottom: $tama-status-border-double;
 		}
 
 		span {
@@ -137,19 +108,27 @@ hr {
 		background-color: $night-mode-background-color;
 		color: $night-mode-color;
 	}
-
 }
 
-.tama-main-content {
-	width: 333px;
+.tama-core {
 	position: relative;
-	padding: 0;
+	height: 332px;
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
+	}
+}
+
+.tama-character {
+	margin-top: 40px;
+	height: 250px;
 }
 
 .tama-action-bar {
 	position: absolute;
 	width: 100%;
-	top: 235px;
+	top: 183px;
 	left: 50%;
 	z-index: 100;
 
@@ -199,6 +178,32 @@ hr {
 
 	}
 }
+
+.tama-footer {
+	height: 38px;
+
+	border-top: $tama-footer-border;
+
+	&.night-mode {
+		background-color: $night-mode-background-color;
+		color: $night-mode-color;
+	}
+}
+
+.tama-adv {
+	width: 335px;
+	height: 45px;
+	background-image: url('images/advertisement.png');
+	background-position: center 0;
+	background-repeat: no-repeat;
+}
+
+.tama-loose {
+	margin-top: 100px;
+	height: 340px;
+}
+
+
 
 .tama-help {
 	height: 531px;
