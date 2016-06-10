@@ -1,3 +1,4 @@
+
 /* This class provides an abstraction view of a Tamagotchi character */
 var Tamagotchi = (function () {
     function Tamagotchi(name, health, happiness, money, cleanness, workLevel) {
